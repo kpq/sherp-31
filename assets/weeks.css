@@ -11,8 +11,8 @@
 }
 
 #nyu-dj-2013-lab-container {
-  border-bottom:3px solid chartreuse;
-  border-top:3px solid chartreuse;
+  border-bottom:3px solid orange;
+  border-top:3px solid orange;
 
 
 }
@@ -73,7 +73,7 @@ code {
 
 
 .update-test strong {
-  color:red;
+  color:orange;
 }
 .update-test {
   font-weight:normal;
