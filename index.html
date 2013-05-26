@@ -14,10 +14,20 @@ body {
   font-family: arial, sans-serif;
 }
 
-.g-intro-graf p {
+p {
   font-family: georgia;
   font-size: 18px;
+  margin-top:6px;
   line-height: 1.4em;
+}
+
+h5 {
+  font-weight:normal;
+  text-transform:uppercase;
+  font-size:11px;
+}
+h4 {
+  margin:10px 0;
 }
 
 .g-week {
@@ -58,17 +68,37 @@ body {
 <div id="g-syllabus">
 
   <div class="g-intro-graf">
-    <h1>Data Journalism</h1>
+    <h1>Syllabus for Data Journalism</h1>
     <p>This course teaches some of the skills and techniques necessary for using statistical information effectively in science journalism. Obtaining, interpreting, visualizing and displaying data are essential skills for journalists in the 21st Century, especially those who cover scientific and technical subjects. Students will scrutinize techniques used in previously published projects and will also analyze data on their own, evaluating and producing tables, charts and diagrams using a variety of basic desktop software, web tools and basic scripting and programming.</p>
   </div>
 
   <div class="g-classes-table">
-
     <h5>Class schedule</h5>
-
-
-
   </div>
+
+  <div id="g-policies-container nyu-clearfix">
+
+    <h5>Grading</h5>
+      <div>
+        <h4>Homework (40%)</h4>
+        <p>We expect you to post all of your work on a Web site. You should have one index page with links to your assignments. You will be responsible for updating this page. Late homework will not be accepted.</p>
+      </div>
+      <div>
+        <h4>Lab (20%)</h4>
+        <p>Lab sessions are one of the most important aspects of this class. If you need to miss class, you are responsible for obtaining any materials or assignments from one of your classmates.</p>
+      </div>
+      <div>
+        <h4>Critique (5%)</h4>
+        <p>Once during the summer, you and a partner will present a brief (5 minutes) critique of a piece of data journalism. What's good about it? What could be improved? This will serve as a chance to see and discuss work that's being published around the web. The schedule will be posted on Class 2</p>
+      </div>
+      <div>
+        <h4>Final project (35%)</h4>
+        <p>At the end of the class, you will produce a piece of explanatory journalism, demonstrating the skills you have learned. The project will primarily consist of written and/or visual work, posted online, and it will also include a brief presentation. <strong>We'll have a more thorough description of the project and its requirements by Week 3.</strong></p>
+      </div>
+    </div>
+
+    <div id = "homework table">
+    </div>
 
 
 </div>
@@ -78,7 +108,7 @@ body {
 <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
 <script type="text/javascript">
 
-d3.tsv("assets/classes.tsv", function(err, classes) {
+d3.tsv("assets/data/classes.tsv", function(err, classes) {
 
     var table = d3.select(".g-classes-table").append("div");
 

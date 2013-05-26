@@ -1,0 +1,80 @@
+#nyu-2013-dj-week-page-container {
+  width:750px;
+  margin:20px auto;
+  font-family:arial,sans;
+  color:#333;
+}
+
+#nyu-2013-dj-week-page-container a {
+  color:black;
+
+}
+
+#nyu-dj-2013-lab-container {
+  border-bottom:3px solid orange;
+  border-top:3px solid orange;
+
+
+}
+
+.nyu-2013-dj-banner {
+  color: black;
+  font-weight: normal;
+  font-size: 15px;
+}
+
+#nyu-2013-week-header {
+}
+
+.nyu-2013-dj-week {
+  font-size:16px;
+  margin:3px 0;
+}
+.nyu-2013-dj-week-title {
+  font-size:27px;
+}
+
+.nyu-2013-week-intro-graf {
+  font-size: 16px;
+  line-height: 23px;
+}
+
+code {
+  background-color:#eee;
+  margin:0px 3px;
+
+}
+
+.nyu-2013-dj-week-date {
+  font-size:15px;
+  color:#999;
+}
+
+.nyu-code-block {
+}
+
+.nyu-2013-dj-lab-instructions {
+
+}
+
+.nyu-2013-dj-lab-instructions li {
+  padding: 5px 0;
+  line-height: 21px;
+  font-size:15px;
+
+}
+
+.nyu-2013-lab-lab-sub-subhed {
+  font-weight:normal;
+  font-style:italic;
+  font-size:15px;
+  margin:3px 0;
+}
+
+
+.update-test strong {
+  color:orange;
+}
+.update-test {
+  font-weight:normal;
+}
