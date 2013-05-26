@@ -1,1 +1,125 @@
-My GitHub Page kpq
+<html lang="en">
+<head>
+  <title>Sherp 31 syllabus</title>
+</head>
+<body>
+
+<style type="text/css">
+body {
+  margin:20px auto;
+}
+#g-syllabus {
+  margin:20px auto;
+  width:700px;
+  font-family: arial, sans-serif;
+}
+
+.g-intro-graf p {
+  font-family: georgia;
+  font-size: 18px;
+  line-height: 1.4em;
+}
+
+.g-week {
+  width: 100%;
+  display: inline-block;
+  margin: 10px 0;
+  border-bottom: 1px solid #ccc;
+  font-size: 13px;
+  padding: 2px 0 20px;
+}
+
+.g-class-name {
+  float:left;
+  width:10%;
+}
+
+.g-class-date {
+ float:left;
+ width:10%;
+}
+
+.g-class-title {
+  font-size: 20px;
+  float: left;
+  width: 80%;
+  font-family: georgia;
+}
+
+.g-inactive {
+  text-decoration: none;
+  color:#666;
+}
+
+
+</style>
+
+
+<div id="g-syllabus">
+
+  <div class="g-intro-graf">
+    <h1>Data Journalism</h1>
+    <p>This course teaches some of the skills and techniques necessary for using statistical information effectively in science journalism. Obtaining, interpreting, visualizing and displaying data are essential skills for journalists in the 21st Century, especially those who cover scientific and technical subjects. Students will scrutinize techniques used in previously published projects and will also analyze data on their own, evaluating and producing tables, charts and diagrams using a variety of basic desktop software, web tools and basic scripting and programming.</p>
+  </div>
+
+  <div class="g-classes-table">
+
+    <h5>Class schedule</h5>
+
+
+
+  </div>
+
+
+</div>
+
+
+
+<script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
+<script type="text/javascript">
+
+d3.tsv("assets/classes.tsv", function(err, classes) {
+
+    var table = d3.select(".g-classes-table").append("div");
+
+    var row =  table.selectAll("div")
+        .data(classes)
+        .enter()
+        .append("div")
+        .classed("g-week", true);
+
+    var classdate = row.append("div")
+        .text(function(d) { return d.date; })
+        .classed("g-class-date", true);
+
+    var classname = row.append("div")
+        .text(function(d) { return d.classname; })
+        .classed("g-class-name", true);
+
+    var classtitle = row.append("div");
+
+    var classlink = classtitle.append("a")
+        .text(function(d) { return d.title; })
+        .classed("g-class-title", true)
+        .classed("g-inactive", function(d) { return !d.slug; })
+        .attr("href", function(d) {
+
+          var link = "weeks/" + d.slug + ".html";
+
+          console.log(d.slug)
+          console.log(!d.slug)
+          console.log("-----")
+
+          return !d.slug === true ? "" : link;
+
+        });
+
+
+});
+
+
+</script>
+
+
+</body>
+</html>
