@@ -27,6 +27,8 @@
       <li>Hit enter a couple times and start on a new line. Let's make a subhed for the page. Call it <code>Homework assignments for data journalism</code>. Use an <code>h2</code> tag, since it's a headline, but not the most important headline on the page.</li>
 
       <li>Now we'll make a table, which is one of the trickier elements to code up in html. This will be a simple table of your homework assignments, which you'll update every week for class so they are easy for you, your classmates and your teachers to return to. First, it helps to have a goal. So let's say once it's totally done, we'd like the first four rows of our table to look something like this: <img src="../assets/images/generic-hw-table.png"></li>
+
+      <li>Here's <a href="http://www.w3schools.com/html/html_tables.asp">a helper for table markup</a>. Feel free to follow the instructions below or just cut and paste from the W3Schools site.</li>
       <li>Start by making the closing and ending tags for a table. <code>&lt;table&gt; ... &lt;/table&gt;</code>. Make some space between them to you have room to write more.</li>
       <li>In HTML tables, every row is its own <code>&lt;tr&gt;</code>element and the columns inside that row are called <code>&lt;td&gt;</code> elements, for "table-data." So make a <code>&lt;tr&gt;...&lt;/tr&gt;</code> tag with some blank space between them. This is good for one table row!</li>
       <li>Next we'll make the column headers for this table. Normally, these would just be <code>&lt;td&gt;</code> elements, but because they are the "headers" for the table, they get a special <code>&lt;th&gt;</code>tag. So make the three headers for your table (inside your <code>&lt;td&gt;</code> tag) :
@@ -45,7 +47,7 @@
 
     </ol>
 
-    <h5 class="nyu-2013-lab-lab-sub-subhed">Steps to publishing your file on your public NYU page.</h4>
+    <h5 class="nyu-2013-lab-lab-sub-subhed">Steps to publishing your file on your public NYU page.</h5>
 
     <ol class="nyu-2013-dj-lab-instructions">
 
@@ -64,11 +66,61 @@
       <li>If you have your own domain and hosting through a third-party, how does the publishing process compare?</li>
     </ul>
 
+    <h5 class="nyu-2013-lab-lab-sub-subhed">Steps to publishing your file on <a href="http://pages.github.com/">Github pages</a>.</h5>
 
-    <h5 class="nyu-2013-lab-lab-sub-subhed">If there's time, let's mark up and style a real article! </h5>
+    <p class="nyu-2013-dj-lab-intro-graf">As we hope you will realize, it's extremely annoying using a site like NYU's to maintain a real web site. So let's take advantage of the free sites available on <a href="http://pages.github.com/">Github pages</a> to behave like adults.</p>
+
+
+      <ol class="nyu-2013-dj-lab-instructions">
+
+        <li>You'll need to have git installed on your machine. <a href="https://help.github.com/articles/user-organization-and-project-pages">Here's a helper</a>, though we'll spend some time in class doing this as well.</li>
+
+        <li>The first step is to create an account with GitHub. Create a username and password. Once you log in, click on "Create a repository."</li>
+
+        <li>You want to create a <strong>user page</strong> with Github pages, which will let you publish files to the web for free. <a href="https://help.github.com/articles/user-organization-and-project-pages">Here's some documentation</a> if you stray from the instructions below.</li>
+
+        <li>The name of your repository <strong>must be</strong> <code>username/username.github.io</code>. Here's what Amanda's looked like:
+
+        <img src="../assets/images/amanvin-gh-pages.png">
+        </li>
+
+        <li>Make sure you check "Initialize this repository with a README" as well. Then click the button that says "Create repository."</li>
+
+        <li>You've just intialized a git repository! Nice. Now we should start adding to it.</li>
+
+        <li>Somewhere on your computer, make a folder called <code>data-journalism</code> and navigate to it in the Terminal. (Ask your neighbor if you have trouble.)</li>
+
+        <li>Copy the clone address, shown below, to your clipboard.
+            <img src="../assets/images/git-clone.png" width="800">
+        </li>
+
+        <li>In the terminal, type <code>git clone</code> followed by the url you copied. So, in Amanda's case, she would tyoe <code>git clone https://github.com/amandacox/amandacox.github.io.git</code> and then hit enter. If it worked, you should get some messages saying things like this:
+
+        <img src = "../assets/images/success.png" style="margin-top:20px;">
+
+        </li>
+
+        <li>Navigate to the folder you just cloned using the terminal.</li>
+
+        <li>Using either the terminal or your Finder window, move the <code>index.html</code> file you created above (the table with homework dates on it) to your project folder.</li>
+
+        <li>Now you're ready to check in some code. (Sweet!) From the terminal, type the following: <br>
+
+          <code> git add .</code><br>
+          <code> git commit -m "initial commit for class"</code> <br>
+          <code> git push </code> <br>
+        </li>
+
+        <li>It should take about 10 minutes for that to show up. But when it does, you will find it at [yourusername].github.io. If you think you did it right, show your instructors, then help a friend.</li>
+
+    </ol>
+
+
+
+    <h5 class="nyu-2013-lab-lab-sub-subhed">If there's time, let's mark up and style a real article! (There might not be time.)</h5>
 
     <ol class="nyu-2013-dj-lab-instructions">
-      <li>First, let's take borrow some content from a recent Science Times article. Download <a href = "supporting-files/aggregated-week-1.txt">the file</a> to your machine, open it in a text editor and read it. Can you tell what's what without any structure? </li>
+      <li>First, let's take borrow some content from a recent Science Times article. Download <a href = "https://files.nyu.edu/arc320/public/supporting-files/aggregated-week-1.txt">the file</a> to your machine, open it in a text editor and read it. Can you tell what's what without any structure? </li>
 
       <li>After reading it through, let's apply some basic markup to the text, starting at the top. Go through the text, line by line, and apply tags as you see fit. What's the main headline for the page? Where is the body copy? Where are there lists? What about inline elements, like links? (We'll do this together, line by line.) If you get stuck, definitely check out the <a href="http://www.w3schools.com/HTML/">w3schools tutorials</a>, which all have great code examples.</li>
 
