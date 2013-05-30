@@ -1,0 +1,77 @@
+<link rel="stylesheet" href="../assets/styles/weeks.css" type="text/css" media="screen" charset="utf-8">
+
+
+  <div id ="nyu-2013-dj-week-page-container">
+  <h4 class="nyu-2013-dj-banner"><a href = "../index.html">Data Journalism 2013</a></h4>
+
+  <div id="nyu-2013-week-header">
+    <h6 class="nyu-2013-dj-week">Week 2 - Monday <span class="nyu-2013-dj-week-date">June 3</span></h6>
+    <h1 class="nyu-2013-dj-week-title">Maps</h1>
+    <p class="nyu-2013-week-intro-graf">Maps allow us to see trends or patterns we might not otherwise see. They also allow readers to look up data they might care about more than you do (because, for example, they live in a place shown, or send their kids to school there). Let's learn how to make them.</p>
+    <p class="nyu-2013-week-intro-graf">Lecture 2 is <a href="../assets/lectures/lecture2-2013.pdf">here.</a></p>
+
+  </div>
+
+  <div id = "nyu-dj-2013-lab-container">
+
+    <h4 class="nyu-2013-dj-week-header">Lab part 1: Stately</h4>
+    <p4 class="nyu-2013-dj-lab-intro-graf">There are quite a few ways to make lovely maps for the web. These ways include <a href = "http://www.mapbox.com/tilemill/gallery"> TileMill</a> and <a href = "http://www.jasondavies.com/maps/transition/"> D3</a> and <a href = "http://vizzuality.github.io/HTML5-experiments/"> cartodb</a>. Today, we're going to start with simpler things. We will make state cloropleth maps in two ways. The first uses a project called <a href = "http://intridea.github.io/stately/">Stately.</a></p>
+
+    <ol class="nyu-2013-dj-lab-instructions">
+
+      <li>Fire up your terminal and cd to your github.io folder.</li>
+      <li>Visit the <a href = "http://intridea.github.io/stately/">Stately</a> page and click the "Get it from GitHub" button. <code>git clone https://github.com/intridea/stately.git</code>. Open the stately folder in your text editor.</li>
+     <li>Read the LICENSE file.</li>
+	 <li>Open stately.html in both your web browser and your text editor.</li>
+	 <li>Edit stately.html so we only have the 2012 presidential election map.</li>
+	 <li>Make your map 600 pixels wide. The README.md file may help you.</li>
+	 <li>Flip the colors of your map. You may want to get rid of the #intrideans and #presidents css so you don't confuse yourself.</li>
+	 <li>Make your home state green.</li>
+	 <li>Let's talk about map.svg. </li>
+	
+	 <li>Add a legend. I googled "html css legend" and found  <a href = "http://www.mapbox.com/tilemill/docs/guides/advanced-legends/">this</a> and <a href = "http://stackoverflow.com/questions/7878076/css-to-lay-out-keys-values-legend-horizontally">this.</a>Let's use the TileMill one</li>
+
+	 <li>Change the data of the map to reflect Internet speeds. You can find data on internet speeds <a href="../assets/data/internetspeeds.xls">here</a>. Here is some <a href = " http://www.nytimes.com/interactive/2011/09/09/us/comparing-internet-speeds-across-the-nation.html">background.</a>	</li>
+	<li>First we must do a little cleaning of the data. Type <code>=LOWER(TRIM(A2))</code> in cell D2 to get the state abbreviations to look like the ones that stately expects. What does trim do? What does lower do?</li>
+	<li>Now sort your data by average speed. (From the Data menu, choose Sort.)</li>
+	<li>Type <code>="#election ."&D2&","</code> in column E2 and fill it down the column</li>
+	<li>Copy the things in column E2 to your CSS file, editing it so your map uses 4 colors. <a href = "http://colorbrewer2.org/">ColorBrewer</a> is an excellent reference for choosing colors for maps.</li>
+    </ol>
+
+
+  <div id = "nyu-dj-2013-lab-container">
+
+    <h4 class="nyu-2013-dj-week-header">Lab part 2: Fusion Tables</h4>
+    <p4 class="nyu-2013-dj-lab-intro-graf">Google's Fusion Tables is another simple way to make cloropleth maps.</a></p>
+
+    <ol class="nyu-2013-dj-lab-instructions">
+		<li>This will require a postal abbreviation in capital letters (but without spaces). Make this column, calling it "id", then save your spreadsheet as a .csv file to your computer.</li>
+		<li>Sign into <a href="http://www.google.com/fusiontables/Home/">Fusion tables</a> and choose Create.</li>
+		<li>Follow the prompts to upload your data. Then, File -> Merge. You want to merge with: https://www.google.com/fusiontables/DataSource?docid=1-v6i33Lf_FjhRZcHKO0PG2DADipCg4L-dGiucAE
+			Use the id fields to merge. Then choose View Table. This new table has both your data and state data. Click on the map of geometry tab.</li>
+		<li>Choose Tools, Change map styles. We want to fill our polygons, so choose click "Fill color" under polygons. First select "Gradient" and see what the map looks like. You probably need to click the "use this range" button. What's good and bad about this? Then select "buckets", specifying 5 buckets. Again, what are the pros and cons of this kind of mapping? Tweak your colors until they tell you something.</li>
+	
+		<li>Style what's displayed in the info window. Tools -> Change info window layout</li>
+	
+		<li>When you (think you)'re done, click "Share" in the upper-right hand of the screen. Make sure the visibility option is set to "Public." </li>
+	
+		<li>Optional: If you are ahead, experiment with this <a href="http://gmaps-samples.googlecode.com/svn/trunk/fusiontables/fusiontableslayer_builder.html">easy way</a> to customize the look of the map.</li>
+		</li>
+
+		<li>After you've set the visibility option to public, click "Tools -> Publish" Open up a new blank HTML file in your text editor and paste in the code inside a "div" tag.  </li>
+
+		<li>Save the file and open it up in a web browser. How does it look?</li>
+					
+	</ol>
+
+  </div>
+
+  <div class="nyu-2013-dj-homework">
+
+    <h4 class="nyu-2013-dj-week-header">Homework</h4>
+    <p class="nyu-2013-week-intro-graf">Make a map of the state data you brought to class today, using the mapping tool of your choosing. Put it on a page that includes a headline, a paragraph with a lede-like sentence in it (give me a reason to care) and a source. Push your files to your github page, making sure this page is linked from index.html. This assignment is due at <strong>6:30 PM on Sunday, June 9</strong>.</p>
+
+  </div>
+
+
+</div>
