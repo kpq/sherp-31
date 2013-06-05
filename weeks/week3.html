@@ -1,0 +1,158 @@
+<link rel="stylesheet" href="../assets/styles/weeks.css" type="text/css" media="screen" charset="utf-8">
+
+<style type="text/css">
+
+.g-special-quote {
+  font-style: italic;
+  font-family: georgia;
+  font-size: 17px;
+  line-height: 1.4em;}
+</style>
+
+  <div id ="nyu-2013-dj-week-page-container">
+  <h4 class="nyu-2013-dj-banner"><a href = "../index.html">Data Journalism 2013</a></h4>
+
+
+
+  <div id="nyu-2013-week-header">
+    <h6 class="nyu-2013-dj-week">Class 3 - Wednesday <span class="nyu-2013-dj-week-date">June 5</span></h6>
+    <h1 class="nyu-2013-dj-week-title">Introduction to Excel and asking questions from data</h1>
+    <p class="nyu-2013-week-intro-graf">How do you interview a spreadsheet like a human being? What kind of journalism comes out of that? A quick review of writing with numbers, 8 archetypes of data journalism, and then the basics of Excel.</p>
+
+	<p>Rachel and Lily are critiquing <a href="http://www.google.com">this file</a> this week. Fun!</p>
+
+
+    <p class="nyu-2013-week-intro-graf">Lecture 3 is <a href="../assets/lectures/lecture3-2013.pdf">here.</a></p>
+
+
+  </div>
+
+  <div id = "nyu-dj-2013-lab-container">
+
+    <h4 class="nyu-2013-dj-week-header">Lab</h4>
+    <p class="nyu-2013-dj-lab-intro-graf">
+      As we've already learned, a good chunk of data journalism is in getting the information you want from a data set and presenting the story you want to present. So today we'll put on a few different presenting hats to come at a data set from different angles. In the process, we'll do some work with Excel.</p>
+
+     <h4 class="nyu-2013-dj-week-header">Getting started</h4>
+
+     <ol class="nyu-2013-dj-lab-instructions">
+
+    <li>
+      Our data today is about baseball and it will be from two data sources. The first is a database of Major League salaries from the 2013 season, which we'll call <strong>salaries</strong>. courtesy of <a href=="http://www.baseballprospectus.com/compensation/">Baseball Prospectus</a>. Take a minute to explore the site a bit.</li>
+
+    <li>
+      The second site is from Major League Baseball, and it's a list of all transcations of the 2013 season. We'll refer to this in class as <strong>transactions</strong>. Here's <a href="http://mlb.mlb.com/mlb/transactions/#month=6&year=2013">the list</a> for June. If you're feeling brave, take a look at <a href="http://mlb.mlb.com/lookup/json/named.transaction_all.bam?start_date=20130101&end_date=20130531&sport_code='mlb'"> the data</a> that feeds that table. Does it make any sense? Just for fun, open your terminal and download the file from there.<br><br>
+
+      <code>curl "http://mlb.mlb.com/lookup/json/named.transaction_all.bam?start_date=20130101&end_date=20130531&sport_code='mlb'"</code>
+
+      <br>      <br>
+
+      What does it look like?
+    </li>
+
+    <li>Luckily, someone already saved the files in a format Excel is happy with. First, download <strong>salaries</strong> from <a href="../assets/data/salaries.csv">here</a> and download <strong>disabled-list</strong> (a subset of <strong>transactions</strong>) <a href="../assets/data/disabled-list.csv">here</a>. Save both to a local folder of your choice. (Kevin likes his in a "data" folder in his project folder, but he won't make you follow his rules.)</li>
+
+    <li>Before moving on, make sure you have two .csv files: one of player names, teams and salaries (which we're calling <strong>salaries</strong>, and another of players on the disabled list, which we're calling <strong>disabled</strong>. They should both be in the same folder and you should know where they are. Make sure your neighbor is on board too before moving on.</li>
+
+    <!-- ./assets/data/merged-dl.csv -->
+
+  </ol>
+
+    <h4 class="nyu-2013-dj-week-header">Preparing our data</h4>
+
+    <ol class="nyu-2013-dj-lab-instructions">
+
+      <li>First, make a copy of <strong>salaries</strong>. Rename it with your initials. Generally, it's best not to edit raw data, so if we make a mistake down the line, we can always come back and check the original document, even if it has left the internet or your source is missing.</li>
+
+      <li>Know that there are many different versions of Excel, so there are many different ways of doing these things. They are all basically similar though, so just ask, especially if you are working on your laptop and things are a little different.</li>
+
+      <li>Open the salaries table in Excel. It might not be in a great format depending on how computer's Excel settings. You might need to select the data and select "Data > Text to Columns" from the menu. (We'll do this together if there are problems.)</li>
+
+      <li>Next, another safeguard. Make a column called "origsort," which giving each row its own ID number starting at 1. (There are many ways to do this.) This is basically a safety measure for if we screw things up, but it is also easier to speak to sources on the phone with the same spreadsheet if we can refer to a row number that is the same in their copy.</li>
+
+      <li>Format your column headers to be bold, and, optionally, have colored backgrounds.</li>
+
+      <li>Make all of your columns wide enough to see the data.</li>
+
+      <li>So we can see the "top" and "bottom" of our data at the same time, freeze panes (under the "window" header) or split windows (with the icon in the top-right corner) on this worksheet. This one is your call and tastes vary. Amanda hates splitting windows, but Kevin always does it. Try both and get a preference for one of them, or possibly none. But do learn how they work.</li>
+
+      <li>Let's format the data so it's in more understandable terms. Right-click the column header called "salary" and select "Format cells" and "Currency" to make the numbers appear more human-readable.</li>
+
+      <li>More or less, we're ready to start interviewing our data. What kind of information might we want to know about a data set like this, regardless of whether the data is salaries of athletes or university professors?</li>
+    </ol>
+
+    <h4 class="nyu-2013-dj-week-header">Asking questions, getting answers</h4>
+
+    <ol class="nyu-2013-dj-lab-instructions">
+
+      <li>How much money was paid to players in 2013? To find that answer, use the <code>SUM</code> formula.</li>
+
+      <li>Let's sort our data from lowest salary to higest. There are lots of ways to do this, mostly filter and sort. We'll do both. Who is the highest paid player in the league? The lowest?</li>
+
+      <li>Say you're a fan of the Yankees (teamcode is <code>NYA</code>). How much do these players make as a team? Use filter to get your answer.</li>
+
+      <li>You can combine filters too. Who is the highest-paid relief pitcher on the Minnesota Twins (<code>MIN</code>) ?
+
+      <li>Or you can use filter to make a custom threshold. How many players in the league are paid more than a million dollars per year? What percent make the league minimum?</li>
+
+    </ol>
+
+    <h4 class="nyu-2013-dj-week-header">Data rhetoric</h4>
+    <p class="nyu-2013-dj-lab-intro-graf">
+    Consider the following sentences and determine whether they are true, but also who might have said them, and why.</p>
+
+    <p class="g-special-quote">
+      "The minimum salary for baseball players must be raised. Most of these players are not multimillionaires -- in fact, the most common salary is the league minimum, and that doesn't last long: the average career length for a player is <a href="http://www.nytimes.com/2007/07/15/sports/baseball/15careers.html">only about five years</a>."
+    </p>
+
+    <p class="g-special-quote">
+      "On average, baseball players were paid $3.5 million for the 2013 season -- that's $25,000 per game! They make enough as it is."
+    </p>
+
+    <p class="g-special-quote">
+      "Inequality in major league baseball is ruining the game. How are smaller clubs supposed to compete on a level playing field when the payrolls of top teams are paying 10 times that of bottom teams?"
+    </p>
+
+    <p class="g-special-quote">
+      "The Dodgers are the worst-coached team in baseball. They have the highest payroll in the league but they are in <a href="https://www.google.com/search?q=major+league+baseball+standings&oq=major+league+baseball+standings&aqs=chrome.0.57j5j0l2j62l2.10723j0&sourceid=chrome&ie=UTF-8">last place</a> in the NL West."
+    </p>
+
+
+    <p class="nyu-2013-dj-lab-intro-graf">
+      Going back to the lecture, think about what other kind of comparisons we could make that might make sense for a variety of perspectives.</p>
+
+      <p class="nyu-2013-dj-lab-intro-graf">
+      Look at these baseball visualizations. What data sets did they use (i.e. what other data would you need to make each), and what is the point of each?</p>
+
+      <ul>
+        <li><a href="http://graphics.latimes.com/mlb-salaries/#dodgers:angels">Can money buy baseball glory?</a> (LA Times)</li>
+
+        <li><a href="http://fathom.info/salaryper">Salary vs. performance</a> (Ben Fry)</li>
+
+
+        <li><a href="http://itsaboutthemoney.net/archives/2013/05/01/update-yankees-dld-payroll-nearing-100m/">Yankee DL nearing $100M</a> (The Yankee Analysts)</li>
+
+        <li><a href="http://www.nytimes.com/interactive/2013/05/13/sports/baseball/money-on-the-bench.html">Money on the Bench</a>(NYT)</li>
+
+
+
+
+      </ul>
+
+
+
+
+
+
+
+  </div>
+
+  <div class="nyu-2013-dj-homework">
+
+<!--     <h4 class="nyu-2013-dj-week-header">Homework</h4>
+    <p class="nyu-2013-week-intro-graf">Find data that is appropriate for making a cloropleth state map. Make a map of this data, using the mapping tool of your choosing. Put it on a page that includes a headline, a paragraph with a lede-like sentence in it (give me a reason to care) and a source. Push your files to your github page, making sure this page is linked from index.html. This assignment is due at <strong>6:30 PM on Sunday, June 9</strong>.</p> -->
+
+  </div>
+
+
+</div>
