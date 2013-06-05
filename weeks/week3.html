@@ -19,7 +19,7 @@
     <h1 class="nyu-2013-dj-week-title">Introduction to Excel and asking questions from data</h1>
     <p class="nyu-2013-week-intro-graf">How do you interview a spreadsheet like a human being? What kind of journalism comes out of that? A quick review of writing with numbers, 8 archetypes of data journalism, and then the basics of Excel.</p>
 
-	<p>Rachel and Lily are critiquing <a href="http://www.google.com">this file</a> this week. Fun!</p>
+	<p>Rachel and Lily are critiquing <a href="http://www.businessinsider.com/tweet-densities-maps-by-city-and-continent-2013-6">these maps</a> this week.</p>
 
 
     <p class="nyu-2013-week-intro-graf">Lecture 3 is <a href="../assets/lectures/lecture3-2013.pdf">here.</a></p>
@@ -41,7 +41,7 @@
       Our data today is about baseball and it will be from two data sources. The first is a database of Major League salaries from the 2013 season, which we'll call <strong>salaries</strong>. courtesy of <a href=="http://www.baseballprospectus.com/compensation/">Baseball Prospectus</a>. Take a minute to explore the site a bit.</li>
 
     <li>
-      The second site is from Major League Baseball, and it's a list of all transcations of the 2013 season. We'll refer to this in class as <strong>transactions</strong>. Here's <a href="http://mlb.mlb.com/mlb/transactions/#month=6&year=2013">the list</a> for June. If you're feeling brave, take a look at <a href="http://mlb.mlb.com/lookup/json/named.transaction_all.bam?start_date=20130101&end_date=20130531&sport_code='mlb'"> the data</a> that feeds that table. Does it make any sense? Just for fun, open your terminal and download the file from there.<br><br>
+      The second site is from Major League Baseball, and it's a list of all transcations of the 2013 season. We'll refer to this in class as <strong>disabled or DL</strong> (which we might not get to today, but it's good to have in case). Here's <a href="http://mlb.mlb.com/mlb/transactions/#month=6&year=2013">the list</a> for June. If you're feeling brave, take a look at <a href="http://mlb.mlb.com/lookup/json/named.transaction_all.bam?start_date=20130101&end_date=20130531&sport_code='mlb'"> the data</a> that feeds that table. Does it make any sense? Just for fun, open your terminal and download the file from there.<br><br>
 
       <code>curl "http://mlb.mlb.com/lookup/json/named.transaction_all.bam?start_date=20130101&end_date=20130531&sport_code='mlb'"</code>
 
@@ -50,7 +50,7 @@
       What does it look like?
     </li>
 
-    <li>Luckily, someone already saved the files in a format Excel is happy with. First, download <strong>salaries</strong> from <a href="../assets/data/salaries.csv">here</a> and download <strong>disabled-list</strong> (a subset of <strong>transactions</strong>) <a href="../assets/data/disabled-list.csv">here</a>. Save both to a local folder of your choice. (Kevin likes his in a "data" folder in his project folder, but he won't make you follow his rules.)</li>
+    <li>Luckily, someone already saved the files in a format Excel is happy with. First, download <strong>salaries</strong> from <a href="../assets/data/salaries.csv">here</a> and download <strong>disabled list</strong> (a subset of <strong>transactions</strong>) <a href="../assets/data/disabled-list.csv">here</a>. Save both to a local folder of your choice. (Kevin likes his in a "data" folder in his project folder, but he won't make you follow his rules.)</li>
 
     <li>Before moving on, make sure you have two .csv files: one of player names, teams and salaries (which we're calling <strong>salaries</strong>, and another of players on the disabled list, which we're calling <strong>disabled</strong>. They should both be in the same folder and you should know where they are. Make sure your neighbor is on board too before moving on.</li>
 
@@ -66,7 +66,7 @@
 
       <li>Know that there are many different versions of Excel, so there are many different ways of doing these things. They are all basically similar though, so just ask, especially if you are working on your laptop and things are a little different.</li>
 
-      <li>Open the salaries table in Excel. It might not be in a great format depending on how computer's Excel settings. You might need to select the data and select "Data > Text to Columns" from the menu. (We'll do this together if there are problems.)</li>
+      <li>Open the salaries table in Excel. It might not be in a great format depending on your computer's Excel settings. You might need to select the data and select "Data > Text to Columns" from the menu. (We'll do this together if there are problems.)</li>
 
       <li>Next, another safeguard. Make a column called "origsort," which giving each row its own ID number starting at 1. (There are many ways to do this.) This is basically a safety measure for if we screw things up, but it is also easier to speak to sources on the phone with the same spreadsheet if we can refer to a row number that is the same in their copy.</li>
 
@@ -95,6 +95,32 @@
 
       <li>Or you can use filter to make a custom threshold. How many players in the league are paid more than a million dollars per year? What percent make the league minimum?</li>
 
+      <li>Say we wanted to get more complicated information, like the total payroll per team. How might we do that with filters? What might be annoying about that approach? </li>
+
+      <li>Instead of using filter to get the answers, we can use a pivot table. Highlight your data and select "Data > PivotTable" and hit OK.</li>
+
+      <li>Depending on which version of Excel you have, you might get a variety of different interfaces. It might look like this:<br>
+        <img src="../assets/images/pivot-table.png">
+      </li>
+
+      <li>What we're looking for is a list of total salaries per team. You can experiment with the interface if you want, but you might want it to look like this:<br>
+        <img src="../assets/images/pitvot-table-done.png">
+      </li>
+
+      <li>Copy and paste the data inside your pivot table into a new sheet. Call it "salaries-by-team" and format it with readable column headers and number formatting.</li>
+
+      <li>Which team has the highest payroll? Which has the lowest?</li>
+
+      <li>Repeat this exercise with positions. Find out the median salary for each position in the majors. What's highest? What's lowest?</li>
+
+      <h4 class="nyu-2013-dj-week-header">If there's time</h4>
+
+      <li>If there's time, make an HTML table of these values. There's a nice tutorial <a href="http://www.w3schools.com/html/html_tables.asp">here</a>, but there's a useful tool called <a href="http://shancarter.github.io/mr-data-converter/">Mr. Data Converter</a> that might make your life easier too.</li>
+
+      <li>Call your HTML file "table-practice.html" and upload it to your github page if there's time.</li>
+
+
+
     </ol>
 
     <h4 class="nyu-2013-dj-week-header">Data rhetoric</h4>
@@ -117,6 +143,10 @@
       "The Dodgers are the worst-coached team in baseball. They have the highest payroll in the league but they are in <a href="https://www.google.com/search?q=major+league+baseball+standings&oq=major+league+baseball+standings&aqs=chrome.0.57j5j0l2j62l2.10723j0&sourceid=chrome&ie=UTF-8">last place</a> in the NL West."
     </p>
 
+    <p class="g-special-quote">
+      "The average salaries in baseball are roughly twice as high in M.L.B. as they are in the N.F.L."
+    </p>
+
 
     <p class="nyu-2013-dj-lab-intro-graf">
       Going back to the lecture, think about what other kind of comparisons we could make that might make sense for a variety of perspectives.</p>
@@ -133,9 +163,6 @@
         <li><a href="http://itsaboutthemoney.net/archives/2013/05/01/update-yankees-dld-payroll-nearing-100m/">Yankee DL nearing $100M</a> (The Yankee Analysts)</li>
 
         <li><a href="http://www.nytimes.com/interactive/2013/05/13/sports/baseball/money-on-the-bench.html">Money on the Bench</a>(NYT)</li>
-
-
-
 
       </ul>
 
