@@ -56,11 +56,10 @@
 
 		<li>How about this?
 			<pre><code>d3.selectAll('circle')
-			  .transition()
-			  .duration(1000)
-			  .attr('r', function(d) { return 30*Math.sqrt(d.customer_accident_rate) });
+  .transition()
+  .duration(1000)
+  .attr('r', function(d) { return 30*Math.sqrt(d.customer_accident_rate) });
 </pre></code></li>
-
 				
 		<li>Here's something else to try:<pre><code>var g = svg.selectAll("g.node")
     .data(livecoding.json.data)
