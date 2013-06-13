@@ -1,0 +1,88 @@
+<link rel="stylesheet" href="../assets/styles/weeks.css" type="text/css" media="screen" charset="utf-8">
+
+  <div id ="nyu-2013-dj-week-page-container">
+  <h4 class="nyu-2013-dj-banner"><a href = "../index.html">Data Journalism 2013</a></h4>
+
+  <div id="nyu-2013-week-header">
+
+    <h6 class="nyu-2013-dj-week">Class 6 - Monday <span class="nyu-2013-dj-week-date">June 17</span></h6>
+
+    <h1 class="nyu-2013-dj-week-title">Charts</h1>
+    <p class="nyu-2013-week-intro-graf">The basic types of charts include line charts, area charts, bar charts, scatterplots and pie charts. How should you decide which one to use? And how can we make them?</p>
+
+	<p>Andy, Johannes and Mike are critiquing <a href="tk">tk</a> this week.</p>
+
+	</ol>
+
+  </div>
+
+  <div id = "nyu-dj-2013-lab-container">
+
+	<ol>
+		<li><a href = "http://extremepresentation.typepad.com/files/choosing-a-good-chart-09.pdf">Choosing a good chart</a> and a <a href = "../assets/lectures/charts-reduced.pdf">reduced version.</a></li>
+	<li><a href = "http://lulupinney.co.uk/2012/08/what-are-you-trying-to-say/">What are you trying to say?</a></li>
+	<li><a href = "../assets/lectures/chartexamples.pdf">Some examples</a></li>
+	<li><a href = "http://www.visualmess.com/">Clean up your mess</a></li>
+	</ol>
+	
+
+    <h4 class="nyu-2013-dj-week-header">Lab</h4>
+
+    <h4 class="nyu-2013-dj-week-header">Option 1: Clean excel charts</h4>
+
+    <p class="nyu-2013-dj-lab-intro-graf"></a></p>
+
+     <ol class="nyu-2013-dj-lab-instructions">
+		<li>We will follow <a href = "http://www.storytellingwithdata.com/2011/11/how-to-do-it-in-excel.html">Cole Nussbaumer's guide.</a></li>
+     </ol>
+
+    <h4 class="nyu-2013-dj-week-header">Option 2: Using a service</h4>
+
+    <ol class="nyu-2013-dj-lab-instructions">
+		<li>We will try out  <a href = "http://datawrapper.com/">Datawrapper.</a></li>
+    </ol>
+
+    <h4 class="nyu-2013-dj-week-header">Option 3: Be in charge</h4>
+
+    <ol class="nyu-2013-dj-lab-instructions">
+		<li>We will introduce ourselves to <a href = "http://livecoding.io/">livecoding.io</a></li>
+		<li>We'll start with the html example, and make our way to the d3 scatterplot example</li>
+		<li>What do you think this does?
+			<pre><code>d3.selectAll('circle')
+  .transition()
+  .duration(1000)
+  .attr('cy', function(d) { return 0 });
+</pre></code></li>	
+				
+		<li>Here's something else to try:<pre><code>var g = svg.selectAll("g.node")
+    .data(livecoding.json.data)
+  .enter().append("svg:g")
+    .attr("class", "node")
+    .attr("transform", function(d) { return "translate(" + 100 + "," + 100 + ")"; });
+
+g.append("svg:circle")
+    .attr("r", 5);
+
+g.append("svg:text")
+    .attr("x", 10)
+    .attr("dy", ".31em")
+    .text(function(d) { return "hello"; });
+</code></pre>
+	
+	</li>
+			
+    </ol>
+
+    <h4 class="nyu-2013-dj-week-header">Option 4: Illustrator?</h4>
+	<ol>
+		<li>Time permitting, we may at least open Illustrator, to edit our Excel, datawrapper, or D3 charts, or to start from scratch.</li>
+	</ol>	
+
+
+
+
+  </div>
+
+
+
+</div>
