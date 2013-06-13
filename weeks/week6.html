@@ -51,14 +51,22 @@
 			<pre><code>d3.selectAll('circle')
   .transition()
   .duration(1000)
-  .attr('cy', function(d) { return 0 });
+  .attr('r', function(d) { return 50 });
 </pre></code></li>	
+
+		<li>How about this?
+			<pre><code>d3.selectAll('circle')
+			  .transition()
+			  .duration(1000)
+			  .attr('r', function(d) { return 30*Math.sqrt(d.customer_accident_rate) });
+</pre></code></li>
+
 				
 		<li>Here's something else to try:<pre><code>var g = svg.selectAll("g.node")
     .data(livecoding.json.data)
   .enter().append("svg:g")
     .attr("class", "node")
-    .attr("transform", function(d) { return "translate(" + 100 + "," + 100 + ")"; });
+    .attr("transform", function(d) { return "translate(" + x_scale(d.collision_with_injury) + "," + y_scale(d.dist_between_fail) + ")"; });
 
 g.append("svg:circle")
     .attr("r", 5);
