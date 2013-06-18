@@ -1,0 +1,47 @@
+<link rel="stylesheet" href="../assets/styles/weeks.css" type="text/css" media="screen" charset="utf-8">
+
+</style>
+
+  <div id ="nyu-2013-dj-week-page-container">
+  <h4 class="nyu-2013-dj-banner"><a href = "../index.html">Data Journalism 2013</a></h4>
+
+  <div id="nyu-2013-week-header">
+    <h6 class="nyu-2013-dj-week">Class 7 - Wednesday <span class="nyu-2013-dj-week-date">June 19</span></h6>
+    <h1 class="nyu-2013-dj-week-title">Using the Chrome Inspector</h1>
+    <p class="nyu-2013-week-intro-graf">In this class we'll do a tiny bit of scraping and tk.
+    </p>
+    <p class="nyu-2013-week-intro-graf">Katie, Kate and Roni are critiquing <a href="tk">tk</a> this week.</p>
+</div>
+
+  <div id = "nyu-dj-2013-lab-container">
+
+    <h4 class="nyu-2013-dj-week-header">Lab: Making a very basic scraping robot</h4>
+
+    <ol class="nyu-2013-dj-lab-instructions">
+      <li>Google for a database of zip codes.</li>
+      <li>In excel, generate a column that looks like this: <pre><code>&lt;a href = 'http://www.fight4rx.org/map/getpharms3.php?address=11201'&lt;/a>11201&lt;/a></code></pre>
+	</li>
+	<li>Copy 10 of your links into a new html file.</li>
+      <li>Install a firefox add-in called "DownThemAll!"</li>
+	  <li>Download your 10 links into a new folder.</li>
+	  <li>CD into your folder and copy and paste the following:<pre>
+for file in *.html
+do
+  cat "$file"
+  echo
+done > pharma.txt</pre>
+		</li>
+		<li>Open pharma.txt in a text editor. Replace <code>},</code> with <code>\n</code> using regular expressions and save your file.</li>
+		<li>Open pharma.txt in Excel and use text to columns</li>
+		<li>Watch out for duplicates in your data.</li>
+    </ol>
+
+
+  </div>
+
+
+  </div>
+
+
+
+</div>
