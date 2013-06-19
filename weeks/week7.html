@@ -7,7 +7,7 @@
 
   <div id="nyu-2013-week-header">
     <h6 class="nyu-2013-dj-week">Class 7 - Wednesday <span class="nyu-2013-dj-week-date">June 19</span></h6>
-    <h1 class="nyu-2013-dj-week-title">Using the Chrome Inspector</h1>
+    <h1 class="nyu-2013-dj-week-title">Working the full stack (a fancy way of saying &ldquo;lots of different kinds of work&rdquo;)</h1>
     <p class="nyu-2013-week-intro-graf">In this class we'll do a tiny bit of scraping and tk.
     </p>
     <p class="nyu-2013-week-intro-graf">Katie, Kate and Roni are critiquing <a href="tk">tk</a> this week.</p>
@@ -37,11 +37,78 @@ done > pharma.txt</pre>
     </ol>
 
 
-  </div>
+        <h4 class="nyu-2013-dj-week-header">Cleaning messy data</h4>
+        <p class="nyu-2013-week-intro-graf">Data in the real world is often not as nicely formatted as the data you have worked with in class. In this exercise, you're a data reporter doing a story about successful gun traces in Chicago. (A <a href="http://www.atf.gov/publications/factsheets/factsheet-national-tracing-center.html">gun trace</a> is where they find out where a gun found in a crime was purchased.) After some phone calls, you get your hands on some source data. Each row in this data represents a county in the United States and how many Chicago guns were purchased there. Go ahead and <a href="../assets/data/county-data.txt">download it</a>.</p>
+
+
+        <ol class="nyu-2013-dj-lab-instructions">
+          <li>Before we start getting ahead of ourselves, let's think of questions we might ask. Add a couple of your own in <a href="https://docs.google.com/document/d/19bZ5tU5acdgRGX45qU_MPYHaCMNaP1cQap094SkXs6o/edit?usp=sharing">this Google Doc</a>.</li>
+
+          <li>Open the file in Excel and save it as an Excel spreadsheet. Add column headers.</li>
+          <li>How sad does this data make us?</li>
+          <li>Use text to columns or regular expressions in a text editor to get a column for the county name and state. We'll do both. (Amanda likes text-to-columns, Kevin prefers the text editor.)</li>
+
+          <li>How sad would a pivot table of county names and sum of counts make us? Why?</li>
+
+          <li>It's pretty clear that we need some data that has unique values for each county. Googling <a href="https://www.google.com/search?q=2010+us+county+fips+codes&oq=2010+us+county+fips+codes&aqs=chrome.0.57j0.4261j0&sourceid=chrome&ie=UTF-8#sclient=psy-ab&q=2013+us+county+fips+codes&oq=2013+us+county+fips+codes&gs_l=serp.3...82776.82776.0.83578.1.1.0.0.0.0.54.54.1.1.0...0.0.0..1c.1.17.psy-ab.Ddq_fnLvM7g&pbx=1&bav=on.2,or.r_cp.r_qf.&bvm=bv.47883778,d.dmg&fp=82526f73ae331c90&biw=1446&bih=1272">2013 us county fips codes</a>  should take you close to <a href="http://www.census.gov/geo/www/ansi/national.txt">this site</a>, though there are others and they're pretty similar. Save the file from the census, open it in excel so it's nicely formatted, and paste it into a new tab called "county-lookup" in your chicago traces file.</li>
+
+          <li>You might need to set your columns to be text and re-paste to keep in the leading zeros. Every Excel is different, especially the German one.</li>
+
+          <li>Be happy if your sheet looks like this:
+            <img src="../assets/images/lookup-table.jpg">
+          </li>
+
+          <li>Look at the data and see if it makes any sense.</li>
+
+          <li>Make a new column for the 5-digit county FIPS code for each county. Call it county_fips.</li>
+
+          <li>In your traces sheet, make a new column called "joinfield" that pastes the county name and state together.</li>
+
+          <li>Do the same in your county-lookup sheet. You might need to do this in a couple steps: make a new field that has just the county name on it (lose the word "county"), make it uppercase, and add the state name. It might look like this:
+            <br>
+            <img src="../assets/images/merge-step2.jpg">
+
+          </li>
+
+          <li>Look down the sheet to see if we might already have problems later on with this method.</li>
+
+          <li>We're ready to make a crude attempt a vlookup. Try to get a column called "county_fips" in your traces sheet.</li>
+
+          <li>Which ones didn't match? Why?</li>
+
+          <li>Make a new field called is_error. Use this formula in it (note: for me, column G is "county_fips" but it might be something different for you) <br>
+            <code>=IF(ISERROR(F2),1,0)</code>
+          </li>
+
+          <li>Sort your traces data by is_error and then count. This will let you prioritize your targets. How many do we need to fix?</li>
+
+          <li>What's our first target?</li>
+
+          <li>Lose the parishes and see what happens.</li>
+
+          <li>Fix Alaska too.</li>
+
+          <li>And Puerto Rico.</li>
+
+          <li>Check out the Saints and see what you can do about it. (You might need to go back and fix some manually too.)</li>
+
+          <li>Make a pivot table of is_error and sum of count. This way we can quantitatively answer how good our merge was.</li>
+
+          <li>Once you figure out the dance, go through as many as you can. Sorting by name and iserror can help too.</li>
+
+          <li>You can stop and help a neighbor once you have more than 98 percent match rate and you are not missing any counties with more than 30 guns traced. (Note that the NYT Excel gods are cruel and if you worked there you would need to join them all.)</li>
+
+          <li>How could this cleaning have been avoided?</li>
+
+
+        </ol>
 
 
   </div>
 
 
+  </div>
 
-</div>
+
+
+</div><a href="" onmousedown="return rwt(this,'','','','1','AFQjCNGqeU90_KRHsclrG4oz11O8QeG3WQ','D9VVNyXnvC_79phzWBHthQ','0CC0QFjAA','','',event)"><em>U.S. FIPS County Codes</em></a>
