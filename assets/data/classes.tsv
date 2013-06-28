@@ -1,11 +1,1 @@
-classname	date	title	slug
-Class 1	29-May	Internet sausage making basics, examples of data journalism	week1
-Class 2	3-Jun	An introduction to mapping	week2
-Class 3	5-Jun	Introduction to Excel and asking data questions	week3
-Class 4	10-Jun	More Excel practice	week4
-Class 5	12-Jun	Using the Chrome Inspector	week5
-Class 6	17-Jun	Charts	week6
-Class 7	19-Jun	Scraping, cleaning	week7
-Class 8	24-Jun	Project help
-Class 9	26-Jun	Project help
-Class 10	1-Jul	Presentations
+classname	date	title	slugClass 1	29-May	"Internet sausage making basics, examples of data journalism"	week1Class 2	3-Jun	An introduction to mapping	week2Class 3	5-Jun	Introduction to Excel and asking data questions	week3Class 4	10-Jun	More Excel practice	week4Class 5	12-Jun	Using the Chrome Inspector	week5Class 6	17-Jun	Charts	week6Class 7	19-Jun	"Scraping, cleaning"	week7Class 8	24-Jun	Project help	Class 9	26-Jun	Project help	Class 10	1-Jul	Presentations	week10
