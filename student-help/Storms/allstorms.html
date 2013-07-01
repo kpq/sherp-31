@@ -1,0 +1,951 @@
+
+<!DOCTYPE html>
+<html lang="en" class="wf-nytfranklin=i3-active wf-nytfranklin=i5-active wf-nytfranklin=n3-active wf-nytfranklin=n5-active wf-nytfranklin=n7-active"
+
+<head>
+  
+  <title>Celebrate 60 Years of Named Storms in One Insane Season</title>
+  <link rel="stylesheet" type="text/css" 
+  <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+
+
+<meta charset="utf-8">
+
+
+
+
+<style>
+
+path {
+  stroke-linejoin: round;
+}
+
+h1 {
+  font-family:Georgia;
+  font-weight:bold;
+  text-align:center;
+  font-size:75px;
+  margin-bottom:10px;
+  margin-top:10px;
+}
+
+h2 {
+  font-family:Georgia;
+  font-weight:normal;
+  text-align:center;
+  font-size:35px;
+  margin-bottom:10px;
+  margin-top:10px;
+}
+
+h3 {
+  font-weight:normal;
+  font-size:14px;
+  font-family:arial, helvetica, sans-serif;
+  margin-left:125px;
+}
+
+h4 {
+  font-family:Georgia;
+  font-size:20px;
+  font-style:bold;
+  margin-left:100px;
+}
+
+h5 {
+  font-family:Sans-serif;
+  font-size:10px;
+  margin-left:450px;
+  margin-top:5px;
+}
+
+h6 {
+  font-style:italic;
+  margin-left:600;
+  margin-bottom:5px;
+  margin-top:5px;
+  font-size:26px;
+}
+
+p {
+  font-family:Georgia;
+  width:800px;
+  margin-left:100px;
+}
+
+ul {
+  margin-left:5px;
+  font-family:Georgia,sans-serif;
+  font-size:20px;
+  margin-bottom:1px;
+  margin-top:5px;
+}
+
+li {
+  font-family:Georgia;
+  width:800px;
+}
+img {
+  margin-left:100px;
+}
+
+hr {
+  width:600px;
+  margin-bottom:50px;
+  margin-top:50px;
+}
+.land {
+  fill: #ddd;
+}
+
+div.ex
+{
+width:700px;
+padding:10px;
+border:1px solid gray;
+margin-left:100px;
+}
+
+.states {
+  fill: none;
+  stroke: #fff;
+}
+
+.voronoi {
+  fill: none;
+  stroke: brown;
+  stroke-width: .5px;
+}
+
+.slider { 
+  font-size:10px;
+  width: 830px; 
+  margin: 20px 0px 20px 100px;
+}
+
+.timeText {
+  margin: 0px 20px 100px 375px;
+  font-weight:bold;
+  font-family:Arial;
+  font-size:35px;
+}
+
+.tb1 {
+
+}
+.circle {
+  color: blue;
+}
+
+text {
+	font-family:Arial;
+	font-size:9px;
+}
+
+
+#buttonid{
+	width:20px;
+	position:absolute;
+	top :-5px;
+	left : 55px;
+}
+
+</style>
+
+
+<body>
+
+<h2>60 Years of Named Storms:<h2> 
+  <h1>One Insane Season</h1>
+<body>
+
+  <p align="center">Anything big enough and destructive enough to destroy a city ought to deserve a name. Along with the foes in Godzilla movies, Atlantic hurricanes are the most catastrophic forces affecting human civilization. People have named storms for a while, but it wasn't until 1953 that forecasters started systematically giving names to every storm of every season.</p>
+
+  <p align="center">To celebrate, use the slider below to animate the path of every named hurricane since 1953. You'll notice each circle changes in size. This represents the storms strength at the time of measurement. represents the storm's intensity. To keep things from getting too chaotic, only storms that made landfall are included. </p>
+
+  <p align="center"><em>All data was obtained from <a href="http://www.nhc.noaa.gov/data/hurdat/hurdat2-atlantic-1851-2012-060513.txt">NOAA's HURDAT archive</em></a></p>
+
+<hr>
+
+<script src="http://d3js.org/d3.v3.min.js"></script>
+<script src="http://d3js.org/queue.v1.min.js"></script>
+<script src="http://d3js.org/topojson.v1.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.1/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+
+
+<span class="timeText"></span>
+
+<div style = "position:relative">
+	<div id = "buttonid"></div>
+	<span><div class="slider" id="timeslices"></div></span>
+</div>
+
+<div id = "map"></div>
+
+
+<script>
+
+var width = 1200,
+    height = 650;
+
+var projection = d3.geo.albers();
+
+var path = d3.geo.path()
+    .projection(projection)
+    .pointRadius(1.5);
+
+var svg = d3.select("#map").append("svg")
+    .attr("width", width)
+    .attr("height", height);
+
+queue()
+    .defer(d3.json, "us.json")
+    .defer(d3.tsv, "test4.tsv")
+    .await(ready);
+
+function ready(error, us, airports) {
+  svg.append("path")
+      .datum(topojson.feature(us, us.objects.land))
+      .attr("class", "land")
+      .attr("d", path);
+
+  svg.append("path")
+      .datum(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; }))
+      .attr("class", "states")
+      .attr("d", path);
+  
+  var node = svg.selectAll("g.node")
+      .data(airports)
+      .enter().append("svg:g")
+      .attr("class", "node")
+      .attr("transform", function(d) {return "translate(" + projection([d.lon,d.lat]) + ")";});
+
+  node.append("circle")
+     .attr("r", function(d) {return Math.sqrt(d.windspeed)})
+	 .attr("class", "circle");
+	
+  node.append("text")
+        .attr("x", 10)
+        .attr("dy", ".31em")
+        .text(function(d) { return d.Label; });
+
+// svg.selectAll("circle")
+//  .data(airports)
+//  .enter()
+//  .append("circle")
+//  .attr("r", function(d) {console.log(d.windspeed); return Math.sqrt(d.windspeed)})
+//  .attr("opacity", 1)
+//  .attr("transform", function(d) {return "translate(" + projection([d.lon,d.lat]) + ")";});
+
+
+
+  var slices = [
+{group:1, displaytime:'June, 4: 0600'},
+{group:2, displaytime:'June, 4: 1200'},
+{group:3, displaytime:'June, 4: 0600'},
+{group:4, displaytime:'June, 5: 0000'},
+{group:5, displaytime:'June, 5: 0600'},
+{group:6, displaytime:'June, 5: 1200'},
+{group:7, displaytime:'June, 5: 1800'},
+{group:8, displaytime:'June, 6: 0000'},
+{group:9, displaytime:'June, 6: 0600'},
+{group:10, displaytime:'June, 6: 1200'},
+{group:11, displaytime:'June, 6: 1800'},
+{group:12, displaytime:'June, 7: 0000'},
+{group:13, displaytime:'June, 7: 0600'},
+{group:14, displaytime:'June, 7: 1200'},
+{group:15, displaytime:'June, 7: 1800'},
+{group:16, displaytime:'June, 8: 0000'},
+{group:17, displaytime:'June, 8: 0600'},
+{group:18, displaytime:'June, 8: 1200'},
+{group:19, displaytime:'June, 8: 1800'},
+{group:20, displaytime:'June, 9: 0000'},
+{group:21, displaytime:'June, 9: 0600'},
+{group:22, displaytime:'June, 9: 1200'},
+{group:23, displaytime:'June, 9: 1800'},
+{group:24, displaytime:'June, 10: 0000'},
+{group:25, displaytime:'June, 10: 0600'},
+{group:26, displaytime:'June, 10: 1200'},
+{group:27, displaytime:'June, 10: 1800'},
+{group:28, displaytime:'June, 11: 0000'},
+{group:29, displaytime:'June, 11: 0600'},
+{group:30, displaytime:'June, 11: 1200'},
+{group:31, displaytime:'June, 11: 1800'},
+{group:32, displaytime:'June, 12: 0000'},
+{group:33, displaytime:'June, 12: 0600'},
+{group:34, displaytime:'June, 12: 1200'},
+{group:35, displaytime:'June, 12: 1800'},
+{group:36, displaytime:'June, 13: 0000'},
+{group:37, displaytime:'June, 13: 0600'},
+{group:38, displaytime:'June, 13: 1200'},
+{group:39, displaytime:'June, 13: 1800'},
+{group:40, displaytime:'June, 14: 0000'},
+{group:41, displaytime:'June, 14: 0600'},
+{group:42, displaytime:'June, 14: 1200'},
+{group:43, displaytime:'June, 14: 1800'},
+{group:44, displaytime:'June, 15: 0000'},
+{group:45, displaytime:'June, 15: 0600'},
+{group:46, displaytime:'June, 15: 1200'},
+{group:47, displaytime:'June, 15: 1800'},
+{group:48, displaytime:'June, 16: 0000'},
+{group:49, displaytime:'June, 16: 0600'},
+{group:50, displaytime:'June, 16: 1200'},
+{group:51, displaytime:'June, 16: 1800'},
+{group:52, displaytime:'June, 17: 0000'},
+{group:53, displaytime:'June, 17: 0600'},
+{group:54, displaytime:'June, 17: 1200'},
+{group:55, displaytime:'June, 17: 1800'},
+{group:56, displaytime:'June, 18: 0000'},
+{group:57, displaytime:'June, 18: 0600'},
+{group:58, displaytime:'June, 18: 1200'},
+{group:59, displaytime:'June, 18: 1800'},
+{group:60, displaytime:'June, 19: 0000'},
+{group:61, displaytime:'June, 19: 0600'},
+{group:62, displaytime:'June, 19: 1200'},
+{group:63, displaytime:'June, 19: 1800'},
+{group:64, displaytime:'June, 20: 0000'},
+{group:65, displaytime:'June, 20: 0600'},
+{group:66, displaytime:'June, 20: 1200'},
+{group:67, displaytime:'June, 20: 1800'},
+{group:68, displaytime:'June, 21: 0000'},
+{group:69, displaytime:'June, 21: 0600'},
+{group:70, displaytime:'June, 21: 1200'},
+{group:71, displaytime:'June, 21: 1800'},
+{group:72, displaytime:'June, 22: 0000'},
+{group:73, displaytime:'June, 22: 0600'},
+{group:74, displaytime:'June, 22: 1200'},
+{group:75, displaytime:'June, 22: 1800'},
+{group:76, displaytime:'June, 23: 0000'},
+{group:77, displaytime:'June, 23: 1800'},
+{group:78, displaytime:'June, 24: 0000'},
+{group:79, displaytime:'June, 24: 0600'},
+{group:80, displaytime:'June, 24: 1200'},
+{group:81, displaytime:'June, 24: 1800'},
+{group:82, displaytime:'June, 25: 0000'},
+{group:83, displaytime:'June, 25: 0600'},
+{group:84, displaytime:'June, 25: 1200'},
+{group:85, displaytime:'June, 25: 1800'},
+{group:86, displaytime:'June, 26: 0000'},
+{group:87, displaytime:'June, 26: 0600'},
+{group:88, displaytime:'June, 26: 1200'},
+{group:89, displaytime:'June, 26: 1800'},
+{group:90, displaytime:'June, 27: 0000'},
+{group:91, displaytime:'June, 27: 0600'},
+{group:92, displaytime:'June, 27: 1200'},
+{group:93, displaytime:'June, 27: 1800'},
+{group:94, displaytime:'June, 28: 0000'},
+{group:95, displaytime:'June, 28: 0600'},
+{group:96, displaytime:'June, 28: 1200'},
+{group:97, displaytime:'June, 28: 1800'},
+{group:98, displaytime:'June, 29: 0000'},
+{group:99, displaytime:'June, 29: 0600'},
+{group:100, displaytime:'July, 3: 1800'},
+{group:101, displaytime:'July, 4: 0000'},
+{group:102, displaytime:'July, 4: 0600'},
+{group:103, displaytime:'July, 4: 1200'},
+{group:104, displaytime:'July, 4: 1800'},
+{group:105, displaytime:'July, 5: 0000'},
+{group:106, displaytime:'July, 5: 0600'},
+{group:107, displaytime:'July, 5: 1200'},
+{group:108, displaytime:'July, 5: 1800'},
+{group:109, displaytime:'July, 6: 0000'},
+{group:110, displaytime:'July, 6: 0600'},
+{group:111, displaytime:'July, 6: 1200'},
+{group:112, displaytime:'July, 6: 1800'},
+{group:113, displaytime:'July, 7: 0000'},
+{group:114, displaytime:'July, 7: 0600'},
+{group:115, displaytime:'July, 7: 1200'},
+{group:116, displaytime:'July, 7: 1800'},
+{group:117, displaytime:'July, 8: 0000'},
+{group:118, displaytime:'July, 8: 0600'},
+{group:119, displaytime:'July, 8: 1200'},
+{group:120, displaytime:'July, 8: 1800'},
+{group:121, displaytime:'July, 9: 0000'},
+{group:122, displaytime:'July, 9: 0600'},
+{group:123, displaytime:'July, 9: 1200'},
+{group:124, displaytime:'July, 9: 1800'},
+{group:125, displaytime:'July, 10: 0000'},
+{group:126, displaytime:'July, 10: 0600'},
+{group:127, displaytime:'July, 10: 1200'},
+{group:128, displaytime:'July, 10: 1800'},
+{group:129, displaytime:'July, 11: 0000'},
+{group:130, displaytime:'July, 11: 0600'},
+{group:131, displaytime:'July, 11: 1200'},
+{group:132, displaytime:'July, 11: 1800'},
+{group:133, displaytime:'July, 12: 0000'},
+{group:134, displaytime:'July, 12: 0600'},
+{group:135, displaytime:'July, 12: 1200'},
+{group:136, displaytime:'July, 12: 1800'},
+{group:137, displaytime:'July, 13: 0000'},
+{group:138, displaytime:'July, 13: 0600'},
+{group:139, displaytime:'July, 13: 1200'},
+{group:140, displaytime:'July, 13: 1800'},
+{group:141, displaytime:'July, 14: 0000'},
+{group:142, displaytime:'July, 14: 0600'},
+{group:143, displaytime:'July, 14: 1200'},
+{group:144, displaytime:'July, 14: 1800'},
+{group:145, displaytime:'July, 15: 0000'},
+{group:146, displaytime:'July, 15: 0600'},
+{group:147, displaytime:'July, 15: 1200'},
+{group:148, displaytime:'July, 15: 1800'},
+{group:149, displaytime:'July, 16: 0000'},
+{group:150, displaytime:'July, 16: 0600'},
+{group:151, displaytime:'July, 16: 1200'},
+{group:152, displaytime:'July, 16: 1800'},
+{group:153, displaytime:'July, 17: 0000'},
+{group:154, displaytime:'July, 17: 0600'},
+{group:155, displaytime:'July, 17: 1200'},
+{group:156, displaytime:'July, 17: 1800'},
+{group:157, displaytime:'July, 18: 0000'},
+{group:158, displaytime:'July, 18: 0600'},
+{group:159, displaytime:'July, 18: 1200'},
+{group:160, displaytime:'July, 18: 1800'},
+{group:161, displaytime:'July, 19: 0000'},
+{group:162, displaytime:'July, 19: 0600'},
+{group:163, displaytime:'July, 19: 1200'},
+{group:164, displaytime:'July, 19: 1800'},
+{group:165, displaytime:'July, 20: 0000'},
+{group:166, displaytime:'July, 20: 0600'},
+{group:167, displaytime:'July, 20: 1200'},
+{group:168, displaytime:'July, 20: 1800'},
+{group:169, displaytime:'July, 21: 0000'},
+{group:170, displaytime:'July, 21: 0600'},
+{group:171, displaytime:'July, 21: 1200'},
+{group:172, displaytime:'July, 21: 1800'},
+{group:173, displaytime:'July, 22: 0000'},
+{group:174, displaytime:'July, 22: 0600'},
+{group:175, displaytime:'July, 22: 1200'},
+{group:176, displaytime:'July, 22: 1800'},
+{group:177, displaytime:'July, 23: 0000'},
+{group:178, displaytime:'July, 23: 0600'},
+{group:179, displaytime:'July, 23: 1200'},
+{group:180, displaytime:'July, 23: 1800'},
+{group:181, displaytime:'July, 24: 0000'},
+{group:182, displaytime:'July, 24: 0600'},
+{group:183, displaytime:'July, 24: 1200'},
+{group:184, displaytime:'July, 24: 1800'},
+{group:185, displaytime:'July, 25: 0000'},
+{group:186, displaytime:'July, 25: 0600'},
+{group:187, displaytime:'July, 25: 1200'},
+{group:188, displaytime:'July, 25: 1800'},
+{group:189, displaytime:'July, 26: 0000'},
+{group:190, displaytime:'July, 26: 0600'},
+{group:191, displaytime:'July, 26: 1200'},
+{group:192, displaytime:'July, 26: 1800'},
+{group:193, displaytime:'July, 27: 0000'},
+{group:194, displaytime:'July, 27: 0600'},
+{group:195, displaytime:'July, 27: 1200'},
+{group:196, displaytime:'July, 27: 1800'},
+{group:197, displaytime:'July, 28: 0000'},
+{group:198, displaytime:'July, 28: 0600'},
+{group:199, displaytime:'July, 30: 1200'},
+{group:200, displaytime:'July, 30: 1800'},
+{group:201, displaytime:'July, 31: 0000'},
+{group:202, displaytime:'July, 31: 0600'},
+{group:203, displaytime:'July, 31: 1200'},
+{group:204, displaytime:'July, 31: 1800'},
+{group:205, displaytime:'August, 1: 0000'},
+{group:206, displaytime:'August, 1: 0600'},
+{group:207, displaytime:'August, 1: 1200'},
+{group:208, displaytime:'August, 1: 1800'},
+{group:209, displaytime:'August, 2: 0000'},
+{group:210, displaytime:'August, 2: 0600'},
+{group:211, displaytime:'August, 2: 1200'},
+{group:212, displaytime:'August, 2: 1800'},
+{group:213, displaytime:'August, 3: 0000'},
+{group:214, displaytime:'August, 3: 0600'},
+{group:215, displaytime:'August, 3: 1200'},
+{group:216, displaytime:'August, 3: 1800'},
+{group:217, displaytime:'August, 4: 0000'},
+{group:218, displaytime:'August, 4: 0600'},
+{group:219, displaytime:'August, 4: 1200'},
+{group:220, displaytime:'August, 4: 1800'},
+{group:221, displaytime:'August, 5: 0000'},
+{group:222, displaytime:'August, 5: 0600'},
+{group:223, displaytime:'August, 5: 1200'},
+{group:224, displaytime:'August, 5: 1800'},
+{group:225, displaytime:'August, 6: 0000'},
+{group:226, displaytime:'August, 6: 0600'},
+{group:227, displaytime:'August, 6: 1200'},
+{group:228, displaytime:'August, 6: 1800'},
+{group:229, displaytime:'August, 7: 0000'},
+{group:230, displaytime:'August, 7: 0600'},
+{group:231, displaytime:'August, 7: 1200'},
+{group:232, displaytime:'August, 7: 1800'},
+{group:233, displaytime:'August, 8: 0000'},
+{group:234, displaytime:'August, 8: 0600'},
+{group:235, displaytime:'August, 8: 1200'},
+{group:236, displaytime:'August, 8: 1800'},
+{group:237, displaytime:'August, 9: 0000'},
+{group:238, displaytime:'August, 9: 0600'},
+{group:239, displaytime:'August, 9: 1200'},
+{group:240, displaytime:'August, 9: 1800'},
+{group:241, displaytime:'August, 10: 0000'},
+{group:242, displaytime:'August, 10: 0600'},
+{group:243, displaytime:'August, 10: 1200'},
+{group:244, displaytime:'August, 10: 1800'},
+{group:245, displaytime:'August, 11: 0000'},
+{group:246, displaytime:'August, 11: 0600'},
+{group:247, displaytime:'August, 11: 1200'},
+{group:248, displaytime:'August, 11: 1800'},
+{group:249, displaytime:'August, 12: 0000'},
+{group:250, displaytime:'August, 12: 0600'},
+{group:251, displaytime:'August, 12: 1200'},
+{group:252, displaytime:'August, 12: 1800'},
+{group:253, displaytime:'August, 13: 0000'},
+{group:254, displaytime:'August, 13: 0600'},
+{group:255, displaytime:'August, 13: 1200'},
+{group:256, displaytime:'August, 13: 1800'},
+{group:257, displaytime:'August, 14: 0000'},
+{group:258, displaytime:'August, 14: 0600'},
+{group:259, displaytime:'August, 14: 1200'},
+{group:260, displaytime:'August, 14: 1800'},
+{group:261, displaytime:'August, 15: 0000'},
+{group:262, displaytime:'August, 15: 0600'},
+{group:263, displaytime:'August, 15: 1200'},
+{group:264, displaytime:'August, 15: 1800'},
+{group:265, displaytime:'August, 16: 0000'},
+{group:266, displaytime:'August, 16: 0600'},
+{group:267, displaytime:'August, 16: 1200'},
+{group:268, displaytime:'August, 16: 1800'},
+{group:269, displaytime:'August, 17: 0000'},
+{group:270, displaytime:'August, 17: 0600'},
+{group:271, displaytime:'August, 17: 1200'},
+{group:272, displaytime:'August, 17: 1800'},
+{group:273, displaytime:'August, 18: 0000'},
+{group:274, displaytime:'August, 18: 0600'},
+{group:275, displaytime:'August, 18: 1200'},
+{group:276, displaytime:'August, 18: 1800'},
+{group:277, displaytime:'August, 19: 0000'},
+{group:278, displaytime:'August, 19: 0600'},
+{group:279, displaytime:'August, 19: 1200'},
+{group:280, displaytime:'August, 19: 1800'},
+{group:281, displaytime:'August, 20: 0000'},
+{group:282, displaytime:'August, 20: 0600'},
+{group:283, displaytime:'August, 20: 1200'},
+{group:284, displaytime:'August, 20: 1800'},
+{group:285, displaytime:'August, 21: 0000'},
+{group:286, displaytime:'August, 21: 0600'},
+{group:287, displaytime:'August, 21: 1200'},
+{group:288, displaytime:'August, 21: 1800'},
+{group:289, displaytime:'August, 22: 0000'},
+{group:290, displaytime:'August, 22: 0600'},
+{group:291, displaytime:'August, 22: 1200'},
+{group:292, displaytime:'August, 22: 1800'},
+{group:293, displaytime:'August, 23: 0000'},
+{group:294, displaytime:'August, 23: 0600'},
+{group:295, displaytime:'August, 23: 1200'},
+{group:296, displaytime:'August, 23: 1800'},
+{group:297, displaytime:'August, 24: 0000'},
+{group:298, displaytime:'August, 24: 0600'},
+{group:299, displaytime:'August, 24: 1200'},
+{group:300, displaytime:'August, 24: 1800'},
+{group:301, displaytime:'August, 25: 0000'},
+{group:302, displaytime:'August, 25: 0600'},
+{group:303, displaytime:'August, 25: 1200'},
+{group:304, displaytime:'August, 25: 1800'},
+{group:305, displaytime:'August, 26: 0000'},
+{group:306, displaytime:'August, 26: 0600'},
+{group:307, displaytime:'August, 26: 1200'},
+{group:308, displaytime:'August, 26: 1800'},
+{group:309, displaytime:'August, 27: 0000'},
+{group:310, displaytime:'August, 27: 0600'},
+{group:311, displaytime:'August, 27: 1200'},
+{group:312, displaytime:'August, 27: 1800'},
+{group:313, displaytime:'August, 28: 0000'},
+{group:314, displaytime:'August, 28: 0600'},
+{group:315, displaytime:'August, 28: 1200'},
+{group:316, displaytime:'August, 28: 1800'},
+{group:317, displaytime:'August, 29: 0000'},
+{group:318, displaytime:'August, 29: 0600'},
+{group:319, displaytime:'August, 29: 1200'},
+{group:320, displaytime:'August, 29: 1800'},
+{group:321, displaytime:'August, 30: 0000'},
+{group:322, displaytime:'August, 30: 0600'},
+{group:323, displaytime:'August, 30: 1200'},
+{group:324, displaytime:'August, 30: 1800'},
+{group:325, displaytime:'August, 31: 0000'},
+{group:326, displaytime:'August, 31: 0600'},
+{group:327, displaytime:'August, 31: 1200'},
+{group:328, displaytime:'August, 31: 1800'},
+{group:329, displaytime:'September, 1: 0000'},
+{group:330, displaytime:'September, 1: 0600'},
+{group:331, displaytime:'September, 1: 1200'},
+{group:332, displaytime:'September, 1: 1800'},
+{group:333, displaytime:'September, 2: 0000'},
+{group:334, displaytime:'September, 2: 0600'},
+{group:335, displaytime:'September, 2: 1200'},
+{group:336, displaytime:'September, 2: 1800'},
+{group:337, displaytime:'September, 3: 0000'},
+{group:338, displaytime:'September, 3: 0600'},
+{group:339, displaytime:'September, 3: 1200'},
+{group:340, displaytime:'September, 3: 1800'},
+{group:341, displaytime:'September, 4: 0000'},
+{group:342, displaytime:'September, 4: 0600'},
+{group:343, displaytime:'September, 4: 1200'},
+{group:344, displaytime:'September, 4: 1800'},
+{group:345, displaytime:'September, 5: 0000'},
+{group:346, displaytime:'September, 5: 0600'},
+{group:347, displaytime:'September, 5: 1200'},
+{group:348, displaytime:'September, 5: 1800'},
+{group:349, displaytime:'September, 6: 0000'},
+{group:350, displaytime:'September, 6: 0600'},
+{group:351, displaytime:'September, 6: 1200'},
+{group:352, displaytime:'September, 6: 1800'},
+{group:353, displaytime:'September, 7: 0000'},
+{group:354, displaytime:'September, 7: 0600'},
+{group:355, displaytime:'September, 7: 1200'},
+{group:356, displaytime:'September, 7: 1800'},
+{group:357, displaytime:'September, 8: 0000'},
+{group:358, displaytime:'September, 8: 0600'},
+{group:359, displaytime:'September, 8: 1200'},
+{group:360, displaytime:'September, 8: 1800'},
+{group:361, displaytime:'September, 9: 0000'},
+{group:362, displaytime:'September, 9: 0600'},
+{group:363, displaytime:'September, 9: 1200'},
+{group:364, displaytime:'September, 9: 1800'},
+{group:365, displaytime:'September, 10: 0000'},
+{group:366, displaytime:'September, 10: 0600'},
+{group:367, displaytime:'September, 10: 1200'},
+{group:368, displaytime:'September, 10: 1800'},
+{group:369, displaytime:'September, 11: 0000'},
+{group:370, displaytime:'September, 11: 0600'},
+{group:371, displaytime:'September, 11: 1200'},
+{group:372, displaytime:'September, 11: 1800'},
+{group:373, displaytime:'September, 12: 0000'},
+{group:374, displaytime:'September, 12: 0600'},
+{group:375, displaytime:'September, 12: 1200'},
+{group:376, displaytime:'September, 12: 1800'},
+{group:377, displaytime:'September, 13: 0000'},
+{group:378, displaytime:'September, 13: 0600'},
+{group:379, displaytime:'September, 13: 1200'},
+{group:380, displaytime:'September, 13: 1800'},
+{group:381, displaytime:'September, 14: 0000'},
+{group:382, displaytime:'September, 14: 0600'},
+{group:383, displaytime:'September, 14: 1200'},
+{group:384, displaytime:'September, 14: 1800'},
+{group:385, displaytime:'September, 15: 0000'},
+{group:386, displaytime:'September, 15: 0600'},
+{group:387, displaytime:'September, 15: 1200'},
+{group:388, displaytime:'September, 15: 1800'},
+{group:389, displaytime:'September, 16: 0000'},
+{group:390, displaytime:'September, 16: 0600'},
+{group:391, displaytime:'September, 16: 1200'},
+{group:392, displaytime:'September, 16: 1800'},
+{group:393, displaytime:'September, 17: 0000'},
+{group:394, displaytime:'September, 17: 0600'},
+{group:395, displaytime:'September, 17: 1200'},
+{group:396, displaytime:'September, 17: 1800'},
+{group:397, displaytime:'September, 18: 0000'},
+{group:398, displaytime:'September, 18: 0600'},
+{group:399, displaytime:'September, 18: 1200'},
+{group:400, displaytime:'September, 18: 1800'},
+{group:401, displaytime:'September, 19: 0000'},
+{group:402, displaytime:'September, 19: 0600'},
+{group:403, displaytime:'September, 19: 1200'},
+{group:404, displaytime:'September, 19: 1800'},
+{group:405, displaytime:'September, 20: 0000'},
+{group:406, displaytime:'September, 20: 0600'},
+{group:407, displaytime:'September, 20: 1200'},
+{group:408, displaytime:'September, 20: 1800'},
+{group:409, displaytime:'September, 21: 0000'},
+{group:410, displaytime:'September, 21: 0600'},
+{group:411, displaytime:'September, 21: 1200'},
+{group:412, displaytime:'September, 21: 1800'},
+{group:413, displaytime:'September, 22: 0000'},
+{group:414, displaytime:'September, 22: 0600'},
+{group:415, displaytime:'September, 22: 1200'},
+{group:416, displaytime:'September, 22: 1800'},
+{group:417, displaytime:'September, 23: 0000'},
+{group:418, displaytime:'September, 23: 0600'},
+{group:419, displaytime:'September, 23: 1200'},
+{group:420, displaytime:'September, 23: 1800'},
+{group:421, displaytime:'September, 24: 0000'},
+{group:422, displaytime:'September, 24: 0600'},
+{group:423, displaytime:'September, 24: 1200'},
+{group:424, displaytime:'September, 24: 1800'},
+{group:425, displaytime:'September, 25: 0000'},
+{group:426, displaytime:'September, 25: 0600'},
+{group:427, displaytime:'September, 25: 1200'},
+{group:428, displaytime:'September, 25: 1800'},
+{group:429, displaytime:'September, 26: 0000'},
+{group:430, displaytime:'September, 26: 0600'},
+{group:431, displaytime:'September, 26: 1200'},
+{group:432, displaytime:'September, 26: 1800'},
+{group:433, displaytime:'September, 27: 0000'},
+{group:434, displaytime:'September, 27: 0600'},
+{group:435, displaytime:'September, 27: 1200'},
+{group:436, displaytime:'September, 27: 1800'},
+{group:437, displaytime:'September, 28: 0000'},
+{group:438, displaytime:'September, 28: 0600'},
+{group:439, displaytime:'September, 28: 1200'},
+{group:440, displaytime:'September, 28: 1800'},
+{group:441, displaytime:'September, 29: 0000'},
+{group:442, displaytime:'September, 29: 0600'},
+{group:443, displaytime:'September, 29: 1200'},
+{group:444, displaytime:'September, 29: 1800'},
+{group:445, displaytime:'September, 30: 0000'},
+{group:446, displaytime:'September, 30: 0600'},
+{group:447, displaytime:'September, 30: 1200'},
+{group:448, displaytime:'September, 30: 1800'},
+{group:449, displaytime:'October, 1: 0000'},
+{group:450, displaytime:'October, 1: 0600'},
+{group:451, displaytime:'October, 1: 1200'},
+{group:452, displaytime:'October, 1: 1800'},
+{group:453, displaytime:'October, 2: 0000'},
+{group:454, displaytime:'October, 2: 0600'},
+{group:455, displaytime:'October, 2: 1200'},
+{group:456, displaytime:'October, 2: 1800'},
+{group:457, displaytime:'October, 3: 0000'},
+{group:458, displaytime:'October, 3: 0600'},
+{group:459, displaytime:'October, 3: 1200'},
+{group:460, displaytime:'October, 3: 1800'},
+{group:461, displaytime:'October, 4: 0000'},
+{group:462, displaytime:'October, 4: 0600'},
+{group:463, displaytime:'October, 4: 1200'},
+{group:464, displaytime:'October, 4: 1800'},
+{group:465, displaytime:'October, 5: 0000'},
+{group:466, displaytime:'October, 5: 0600'},
+{group:467, displaytime:'October, 5: 1200'},
+{group:468, displaytime:'October, 5: 1800'},
+{group:469, displaytime:'October, 6: 0000'},
+{group:470, displaytime:'October, 6: 0600'},
+{group:471, displaytime:'October, 6: 1200'},
+{group:472, displaytime:'October, 6: 1800'},
+{group:473, displaytime:'October, 7: 0000'},
+{group:474, displaytime:'October, 7: 0600'},
+{group:475, displaytime:'October, 7: 1200'},
+{group:476, displaytime:'October, 7: 1800'},
+{group:477, displaytime:'October, 8: 0000'},
+{group:478, displaytime:'October, 8: 0600'},
+{group:479, displaytime:'October, 8: 1200'},
+{group:480, displaytime:'October, 8: 1800'},
+{group:481, displaytime:'October, 9: 0000'},
+{group:482, displaytime:'October, 9: 0600'},
+{group:483, displaytime:'October, 9: 1200'},
+{group:484, displaytime:'October, 9: 1800'},
+{group:485, displaytime:'October, 10: 0000'},
+{group:486, displaytime:'October, 10: 0600'},
+{group:487, displaytime:'October, 10: 1200'},
+{group:488, displaytime:'October, 10: 1800'},
+{group:489, displaytime:'October, 11: 0000'},
+{group:490, displaytime:'October, 11: 0600'},
+{group:491, displaytime:'October, 11: 1200'},
+{group:492, displaytime:'October, 11: 1800'},
+{group:493, displaytime:'October, 12: 0000'},
+{group:494, displaytime:'October, 12: 0600'},
+{group:495, displaytime:'October, 12: 1200'},
+{group:496, displaytime:'October, 12: 1800'},
+{group:497, displaytime:'October, 13: 0000'},
+{group:498, displaytime:'October, 13: 0600'},
+{group:499, displaytime:'October, 13: 1200'},
+{group:500, displaytime:'October, 13: 1800'},
+{group:501, displaytime:'October, 14: 0000'},
+{group:502, displaytime:'October, 14: 0600'},
+{group:503, displaytime:'October, 14: 1200'},
+{group:504, displaytime:'October, 14: 1800'},
+{group:505, displaytime:'October, 15: 0000'},
+{group:506, displaytime:'October, 15: 0600'},
+{group:507, displaytime:'October, 15: 1200'},
+{group:508, displaytime:'October, 15: 1800'},
+{group:509, displaytime:'October, 16: 0000'},
+{group:510, displaytime:'October, 16: 0600'},
+{group:511, displaytime:'October, 16: 1200'},
+{group:512, displaytime:'October, 16: 1800'},
+{group:513, displaytime:'October, 17: 0000'},
+{group:514, displaytime:'October, 17: 0600'},
+{group:515, displaytime:'October, 17: 1200'},
+{group:516, displaytime:'October, 17: 1800'},
+{group:517, displaytime:'October, 18: 0000'},
+{group:518, displaytime:'October, 18: 0600'},
+{group:519, displaytime:'October, 18: 1200'},
+{group:520, displaytime:'October, 18: 1800'},
+{group:521, displaytime:'October, 19: 0000'},
+{group:522, displaytime:'October, 19: 0600'},
+{group:523, displaytime:'October, 19: 1200'},
+{group:524, displaytime:'October, 19: 1800'},
+{group:525, displaytime:'October, 20: 0000'},
+{group:526, displaytime:'October, 20: 0600'},
+{group:527, displaytime:'October, 20: 1200'},
+{group:528, displaytime:'October, 20: 1800'},
+{group:529, displaytime:'October, 21: 0000'},
+{group:530, displaytime:'October, 21: 0600'},
+{group:531, displaytime:'October, 21: 1200'},
+{group:532, displaytime:'October, 21: 1800'},
+{group:533, displaytime:'October, 22: 0000'},
+{group:534, displaytime:'October, 22: 0600'},
+{group:535, displaytime:'October, 22: 1200'},
+{group:536, displaytime:'October, 22: 1800'},
+{group:537, displaytime:'October, 23: 0000'},
+{group:538, displaytime:'October, 23: 0600'},
+{group:539, displaytime:'October, 23: 1200'},
+{group:540, displaytime:'October, 23: 1800'},
+{group:541, displaytime:'October, 24: 0000'},
+{group:542, displaytime:'October, 24: 0600'},
+{group:543, displaytime:'October, 24: 1200'},
+{group:544, displaytime:'October, 24: 1800'},
+{group:545, displaytime:'October, 25: 0000'},
+{group:546, displaytime:'October, 25: 0600'},
+{group:547, displaytime:'October, 25: 1200'},
+{group:548, displaytime:'October, 25: 1800'},
+{group:549, displaytime:'October, 26: 0000'},
+{group:550, displaytime:'October, 26: 0600'},
+{group:551, displaytime:'October, 26: 1200'},
+{group:552, displaytime:'October, 26: 1800'},
+{group:553, displaytime:'October, 27: 0000'},
+{group:554, displaytime:'October, 27: 0600'},
+{group:555, displaytime:'October, 27: 1200'},
+{group:556, displaytime:'October, 27: 1800'},
+{group:557, displaytime:'October, 28: 0000'},
+{group:558, displaytime:'October, 28: 0600'},
+{group:559, displaytime:'October, 28: 1200'},
+{group:560, displaytime:'October, 28: 1800'},
+{group:561, displaytime:'October, 29: 0000'},
+{group:562, displaytime:'October, 29: 0600'},
+{group:563, displaytime:'October, 29: 1200'},
+{group:564, displaytime:'October, 29: 1800'},
+{group:565, displaytime:'October, 30: 0000'},
+{group:566, displaytime:'October, 30: 0600'},
+{group:567, displaytime:'October, 30: 1200'},
+{group:568, displaytime:'October, 30: 1800'},
+{group:569, displaytime:'October, 31: 0000'},
+{group:570, displaytime:'October, 31: 0600'},
+{group:571, displaytime:'October, 31: 1200'},
+{group:572, displaytime:'October, 31: 1800'},
+{group:573, displaytime:'November, 1: 0000'},
+{group:574, displaytime:'November, 1: 0600'},
+{group:575, displaytime:'November, 1: 1200'},
+{group:576, displaytime:'November, 1: 1800'},
+{group:577, displaytime:'November, 15: 1800'},
+{group:578, displaytime:'November, 16: 0000'},
+{group:579, displaytime:'November, 16: 0600'},
+{group:580, displaytime:'November, 16: 1200'},
+{group:581, displaytime:'November, 16: 1800'},
+{group:582, displaytime:'November, 17: 0000'},
+{group:583, displaytime:'November, 17: 0600'},
+{group:584, displaytime:'November, 17: 1200'},
+{group:585, displaytime:'November, 17: 1800'},
+{group:586, displaytime:'November, 18: 0000'},
+{group:587, displaytime:'November, 18: 0600'},
+{group:588, displaytime:'November, 18: 1200'},
+{group:589, displaytime:'November, 18: 1800'},
+{group:590, displaytime:'November, 19: 0000'},
+{group:591, displaytime:'November, 19: 0600'},
+{group:592, displaytime:'November, 19: 1200'},
+{group:593, displaytime:'November, 19: 1800'},
+{group:594, displaytime:'November, 20: 0000'},
+{group:595, displaytime:'November, 20: 0600'},
+{group:596, displaytime:'November, 20: 1200'},
+{group:597, displaytime:'November, 20: 1800'},
+{group:598, displaytime:'November, 21: 0000'},
+{group:599, displaytime:'November, 21: 0600'},
+{group:600, displaytime:'November, 21: 1200'},
+{group:601, displaytime:'November, 21: 1800'},
+{group:602, displaytime:'November, 22: 0000'},
+{group:603, displaytime:'November, 22: 0600'},
+{group:604, displaytime:'November, 22: 1200'},
+{group:605, displaytime:'November, 22: 1800'},
+{group:606, displaytime:'November, 23: 0000'},
+{group:607, displaytime:'November, 23: 0600'},
+{group:608, displaytime:'November, 23: 1200'},
+{group:609, displaytime:'November, 23: 1800'}
+  ]
+  
+  function filterMap(id){
+    d3.selectAll('.node').attr('opacity', function(d) { return +d.period == slices[id].group ? 1 : .0005 });
+    $('.timeText').text('' + slices[id].displaytime + ' ')
+  }
+  
+  
+  $("#timeslices").slider({
+    min: 5, max: slices.length - 1, step: 1, value: 0,
+    slide: function(event, ui) {    
+    filterMap(ui.value);
+    }
+  });
+
+
+
+$(function() {
+    $("#buttonid").button({
+        icons: {
+            primary: "ui-icon-play"
+        }
+    });
+
+	var playing = false;
+
+	function stopMoving(){
+		playing = false;
+	}
+	function goForward(){	
+		var thisStep = $('#timeslices').slider('value')
+		if(thisStep == slices.length - 1){
+			stopMoving()
+			$(".ui-button-icon-primary").toggleClass("ui-icon-play ui-icon-pause");
+		}else{
+			$('#timeslices').slider('value', thisStep + 1);
+		 	filterMap(thisStep + 1)
+			if(playing) setTimeout(goForward, 0)
+		}
+	}
+	$("#buttonid").click(function() {
+	  $(".ui-button-icon-primary").toggleClass("ui-icon-play ui-icon-pause");							
+	  // if we are already moving, stop.
+	  if(playing){			
+	  	stopMoving()
+	  }else{
+	  	playing = true;
+	  	goForward();
+	  }
+	})
+});
+
+  
+  
+  filterMap(0)
+
+  d3.selectAll('.node').attr('opacity', .2);
+  $('.timeText').text('')
+
+  
+
+}
+
+</script>
+
+<hr>
+
+<div class="ex">
+  <h6><u>STORMFACTS</u></h6>
+  <ul>
+  <li>Name with most landfalls: Cindy (1959,1963,2005)</li>
+  <li>First retired name: Carol (1954; Category III; Max winds: 85mph) </li>
+  <li>Year with most named storms: 2005 (27 named; 15 hurricanes;<br> This was the first year to use names starting with the letter W,<br> and the only year to exhaust the English Alphabet.<br>2005 had six storms with Greek names)
+   </li>
+  <li>Busiest day for hurricanes: September 10</li>
+  <li>First named storm of 2013: Andrea (June 5)</li>
+  <li>Most hurricane'd state (By volume):Florida (Since 1950, 231 named<br> and unnamed storms have made landfall in Florida)</li>
+  </ul>
+  <h5>Source: NOAA</h5>
+</div>
+
+<hr> 
+
+  <p>Fittingly, NOAA has predicted that the sixtieth anniversary is going to be 70 percent more lively than average. What's this mean? An average year has 12 named storms, and at least half will develop into full hurricanes. NOAA is predicting 2013 will have 13-20. This could come as a double blow, as 2012 was the third most active hurricane season in recorded history. The prediction comes from a cryptic algorithm involving wind shear, water temperature, and African wind patterns. </p>
+
+  <p>Historically in the Atlantic, only particurly violent storms were named, usually after the Roman Catholic Saint on whose day they happened to strike land. Astute readers will note Atlantic storms have actually been named since 1950, using the phonetic alphabet. However, they switched to women's names three years later to settle confusion people using different versions of the phonetic alphabet. Gender equality didn't reach the Atlantic hurricane basin until 1979, when men's names were added to the lists. Pacific typhoons, which are much less destructive because they rarely make landfall, have been named since 1945.</p>
+
+  <p>Originally, there was one list of names to be repeated every year. But inevitably some big storms came along, so forecasters created six rotating lists to keep the year-to-year confusion down. Occasionally, new names are added as particularly destructive storms' moniker's are retired. The most recent addition was Sara, which replaced 2012's hurricane Sandy.</p>
+
+  <hr>
+
+<h3>This graph shows the ratio of named storms by month. [Source: NOAA]</h3>
+
+  <img src="http://www.nhc.noaa.gov/climo/images/cum-average_Atl_1966-2009.gif" height="350px" width="700px" margin-left:"100px">
+
+<hr>
+
+<p>And just in case you're interested, <a href="http://www.nhc.noaa.gov/climo/#uss">here are some great maps by NOAA</a> of hurricane landfalls by county/parish. Unsurprisingly, the Gulf states are highest, though the beak of North Carolina intercepts its fair share of storms that have veered north. It will be interesting to check back in with this graph in ten years to see how landfall locations have changed over time.</p>
+</html>
