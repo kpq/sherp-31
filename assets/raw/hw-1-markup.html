@@ -1,47 +1,27 @@
+• try not to use html tags that dictate presentation. no brs, no center tags, no rule tags, etc. css can do all of those things.
 
-<div id="nyt-article">
-	<div class="nyt-header-info">
-		<h1 class="nyt-article-hed">Relics With Much to Tell About Bird Diets May Be Lost to Time</h1>
-	</div>
+• try not to make web pages that dont look like other web pages you see on the pages of a news org (so no colored backgrounds, headlines in front of images, etc.)
 
-	<div class="nyt-article-image">
-		<img src="http://graphics8.nytimes.com/images/2012/05/22/science/22BIRD1_SPAN/22BIRD1-articleLarge.jpg">
-		<p class="nyt-photo-credit">Photo caption:Caridad Bojorquez/Proteus Gowanus</p>
-		<p class="nyt-photo-caption"><strong>Leftovers</strong> Thousands of jars had preserved the contents of bird stomachs for a food habits study. Now there are 15.</p>
-		
-		<div class="nyt-pub-info">
-			<h6 class="nyt-byline">By <span class="nyt-author-name">Sarah Fecht</span></h6>
-			<h6 class="nyt-published-date">Published: May 21, 2012</h6>
-		</div>
-	</div>
+• tables are hard to style, but a little knowledge goes a long way and can make your tables look much more professional. in general,
 
-	<div class="nyt-article-body">
-		<p>At first glance, the contents of the 15 glass jars in Sam Droege&rsquo;s collection do not look like much &mdash; bivalve shells, twigs, a fishhook. But they hint at a story that would fill a vast ornithological library. In fact, they once did.</p>
-		<p>The jars are the remnants of the federal government&rsquo;s first major study of birds. From 1885 to the 1940s, scientists from the <a href="http://www.pwrc.usgs.gov/history/bsphist2.htm">Division of Economic Ornithology</a> in the Agriculture Department dissected at least 230,000 bird stomachs. The aim was to determine which species were helping farmers and which were harmful.</p>
-		<p>To do so, the government scientists went out shooting, and recruited local hunters to donate birds&rsquo; innards to science. At the dissection table, the scientists recorded the stomach contents of each bird in meticulous detail &mdash; for one mallard duck, a scientist estimated that it had eaten 72,710 seeds from various plants &mdash; and preserved many of them in jars at the <a href="http://www.pwrc.usgs.gov/">Patuxent Wildlife Research Center</a> in Maryland.</p>
-		<p>They created &ldquo;an incredible treasure,&rdquo; said Carola Haas, a wildlife ecologist at Virginia Tech, who has used the collection in her research.</p>
-		<p>&ldquo;Even if we wanted to repeat this work, at enormous expense, we couldn&rsquo;t do it,&rdquo; Dr. Haas added. &ldquo;These records preserve information from a period in time that is now gone.&rdquo;</p>
-		<p>And so are almost all of the jars, which numbered in the thousands. Most were discarded for fear they contained cancer-causing formaldehyde, said Matthew C. Perry, a retired biologist at Patuxent. It appears that the 15 jars held by Mr. Droege, another biologist there, are the last ones in existence.</p>
-		<p>The 230,000 notecards that accompanied the jars sit in a musty basement, mostly forgotten. And they too may face destruction. As with many other historical collections, the United States Geological Survey, which now runs the center, has neither the personnel to digitize the collection nor the space to archive it properly. &ldquo;If I disappear,&rdquo; Mr. Droege said, &ldquo;there will be no one left to champion it.&rdquo;</p>
-		<p>The scientists who helped gather the collection published hundreds of articles, and even a few books, describing the food habits of more than 400 native species. Dozens of other scientists have used the collection to study how birds&rsquo; feeding habits, distribution and abundance have changed over the past 100 years. The collection, undertaken to determine how birds were harming humans, can now be used to determine how humans are harming birds.</p>
-		<p>Dr. Haas is using the collection to study how agricultural practices have changed bird diets. She said that during the 1950s, farmers in the South were encouraged to replace native grasses with cool-season grasses, which could provide food for livestock earlier in the springtime. Now several grassland birds are declining, and Dr. Haas suspects that it is because of the switch to nonnative grasses.</p>
-		<p>Jean-Fran&ccedil;ois Ouellet, a doctoral student at the University of Quebec at Rimouski, is using the collection to study evolutionary relationships between a bird&rsquo;s size and the quality of what it eats. He said the collection was helpful for its detailed information about hundreds of birds across the country over different time periods.</p>
-		<p>The collection may also be useful in reconstructing historical environments, or understanding migration habits. Dr. Haas said that as she was sifting through the card collection, the notes about a group of meadowlarks from Florida caught her eye. &ldquo;Normally we think of meadowlarks as a grassland bird,&rdquo; she said, &ldquo;but these had all eaten longleaf pine seeds. Then I noticed they were all female.&rdquo;</p>
-		<p>The males and females of some species look alike and cannot be distinguished unless they are dissected. Since the Patuxent scientists had already cut open the birds to take out the gullet and gizzard, it had been easy to determine the sex of each specimen as well.</p>
-		<p>So Dr. Haas was able to use the card collection to find a second meadowlark population farther north, on Long Island, that was 80 percent male. She thinks this is evidence that the species may have differential migration patterns. In endangered species, information like that could help with conservation efforts.</p>
-		<p>Over the years, various Patuxent scientists have served as stewards of the collection. Mr. Droege inherited it from Mr. Perry, and Mr. Perry inherited it from a scientist named Francis M. Uhler. Who will care for it next is unknown; Mr. Perry says most scientists just aren&rsquo;t interested.</p>
-		<p>As it happened, an art gallery was. The gallery, Proteus Gowanus in Brooklyn, has been pursuing the theme of migration, and its director, Tamara Pittman, put out a call for interesting objects on that theme.</p>
-		<p>The jars were recently replaced by a new exhibition, &ldquo;Future Migrations.&rdquo; The jars are now lined up in Ms. Pittman&rsquo;s living room, awaiting their own migration back to Patuxent and an uncertain future.</p>
-	</div>
+even these can go a long way:
 
-	<div class="nyt-footer">
-		<h5 class="nyt-text-alert">Get Free E-mail Alerts on These Topics</h5>
-		<ul class="nyt-topics">
-			<li>Birds</li>
-			<li>Agriculture and Farming</li>
-			<li>Agriculture Department</li>
-			<li>Droege, Sam</li>
-		</ul>
-	</div>
+table {
+  border-collapse:collapse;
+}
+table td {
+  padding:10px 0;
+  border-bottom:1px solid #ccc;
+}
 
-</div>
+• add a byline!
+
+• make sure your CSS is valid. if it's not (missing semicolons, too many brackets, no closing tags, etc.), all sorts of things aren't going to work. you can paste your CSS here: http://jigsaw.w3.org/css-validator/#validate_by_input and it will tell you if you screwed anythign up.
+
+• in general, body copy should be black. sometimes we cheat and make it dark grey, like #333 or even #666 for background text, but black should be your default.
+
+• good fonts to stick to are arial, georgia, maybe verdana. courier not so much.
+
+• in general, dont use icons or clip art as a substiture for traditional charting tools. unless you're really, really clever.
+
+• have a page title. it helps google find your page for others. it's a good practice.
